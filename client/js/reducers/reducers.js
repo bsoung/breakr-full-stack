@@ -36,6 +36,4 @@ var settingsReducer = function(state, action) {
 
 
 
-
-exports.settingsReducer = settingsReducer;
-
+module.exports = settingsReducer;
