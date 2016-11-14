@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 // const Timer = () => {
 // 	return (
@@ -13,59 +14,27 @@ import React from 'react';
 
 
 var Timer = React.createClass({
-
-    getInitialState: function(){
-
-        // This is called before our render function. The object that is 
-        // returned is assigned to this.state, so we can use it later.
-
-        return { elapsed: 0 };
-    },
-
-    componentDidMount: function(){
-
-        // componentDidMount is called by react when the component 
-        // has been rendered on the page. We can set the interval here:
-
-        this.timer = setInterval(this.tick, 50);
-    },
-
-    componentWillUnmount: function(){
-
-        // This method is called immediately before the component is removed
-        // from the page and destroyed. We can clear the interval here:
-
-        clearInterval(this.timer);
-    },
-
-    tick: function(){
-
-        // This function is called every 50 ms. It updates the 
-        // elapsed counter. Calling setState causes the component to be re-rendered
-
-        this.setState({elapsed: new Date() - this.props.start});
-    },
-
-    render: function() {
-        
-        var elapsed = Math.round(this.state.elapsed / 100);
-
-        // This will give a number with one digit after the decimal dot (xx.x):
-        var seconds = (elapsed / 10).toFixed(1);    
-
-        // Although we return an entire <p> element, react will smartly update
-        // only the changed parts, which contain the seconds variable.
-
-        return <p>This example was started <b>{seconds} seconds</b> ago.</p>;
-    }
+  render: function() {
+    console.log('TIME REMAINING', this.props.timeRemaining);
+    console.log('START:::', this.props.start);
+    return (
+      <div> 
+      	<div>this is TIME REMAINING{this.props.timeRemaining}</div>
+		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="480" height="907" />
+		<div>this is START {this.props.start}</div>
+	  </div>
+    );
+  }
 });
 
+const mapStateToProps = (state, props) => {
 
-React.renderComponent(
-    <Timer start={Date.now()} />,
-    document.body
-);
+	return {
+		start: state.start,
+		timeRemaining: state.timeRemaining
+	}
+}
 
+let Container = connect(mapStateToProps)(Timer);
 
-
-module.exports = Timer;
+module.exports = Container;
