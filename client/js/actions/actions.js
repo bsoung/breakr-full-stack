@@ -59,7 +59,15 @@ var changeTime = function(time) {
 	}
 };
 
+var TIMER_START = 'TIMER_START'
+var timerStart = function() {
+	return {
+		type: TIMER_START,
+	}
+};
 
+exports.TIMER_START = TIMER_START;
+exports.timerStart = timerStart;
 
 exports.FETCH_ACCOUNT_ERROR = FETCH_ACCOUNT_ERROR;
 exports.fetchAccountError = fetchAccountError;
