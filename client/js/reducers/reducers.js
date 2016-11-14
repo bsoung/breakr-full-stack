@@ -5,9 +5,9 @@ var initialState = {
 	checkedOptions: [],
 	account: null,
 	selectedMusic: null,
-	selectedTime: 0
+	selectedTime: 0,
 	start: false,
-	timeRemaining: null
+	timeRemaining: null,
 };
 
 var settingsReducer = function(state, action) {
