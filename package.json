@@ -1,7 +1,7 @@
 {
-  "name": "thinkful-full-stack-template",
+  "name": "breakr",
   "version": "0.0.1",
-  "description": "A full-stack template for Thinkful students",
+  "description": "Awesome project",
   "main": "index.js",
   "main:server": "server/index.js",
   "main:client": "client/js/index.js",
@@ -61,7 +61,7 @@
     "clean:client:production:assets": "rm -rf build/production/client/assets",
     "build:client:production:assets": "run-s clean:client:production:assets && cp -r client/assets build/production/client"
   },
-  "author": "Joe Turner <joe@oampo.co.uk>",
+  "author": "Team Thinkful!",
   "license": "UNLICENSED",
   "devDependencies": {
     "babel-cli": "^6.11.4",
