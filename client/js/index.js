@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		<Provider store={store}>
 			<div>
 				<Timer />
-				Hello World!
 			</div>
 		</Provider>, 
 		document.getElementById('app'))
