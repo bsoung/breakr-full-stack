@@ -1,5 +1,7 @@
 var fetch = require('isomorphic-fetch');
 
+/** Action Creators */
+
 var CHECK_OPTIONS = 'CHECK_OPTIONS'
 var checkOptions = function(options) {
 	return {
@@ -65,6 +67,104 @@ var timerStart = function() {
 		type: TIMER_START,
 	}
 };
+
+/** Async Action Creators */
+
+const FETCH_ERROR = 'FETCH_ERROR';
+const fetchTimeError = (error) => {
+	return {
+		type: FETCH_ERROR,
+		error: error
+	}
+}
+
+const SEND_TIME = 'SEND_TIME';
+const sendTimeSuccess = (time) => {
+	return {
+		type: SEND_TIME,
+		time: time
+	}
+}
+
+const FETCH_TIME = 'FETCH_TIME';
+const fetchTimeSuccess = (time) => {
+	return {
+		type: FETCH_TIME,
+		time: time
+	}
+}
+
+const fetchTime = (time) => {
+	return (dispatch) => {
+		const url = '/timer';
+		return fetch(url) //GET
+		.then((res) => {
+			if (res.status < 200 || res.status >= 300) {
+				const error = new Error(res.statusText);
+				error.res = res;
+				throw error;
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			const selectedTime = data.time;
+			return dispatch(
+				fetchTimeSuccess(selectedTime)
+			); 
+		})
+		.catch((error) => {
+			return dispatch(
+				fetchTimeError(error)
+			);
+		});
+	}
+}
+
+
+const sendTime = (time) => {
+	return (dispatch) => {
+		const url = '/timer';
+		return fetch(url, {method: 'post', 
+			body: '{"time": '+ time + '}', 
+			headers: {'content-type': 'application/json', 'Accept':'appliction/json'}  })
+
+		.then((res) => {
+			if (res.status < 200 || res.status >= 300) {
+				const error = new Error(res.statusText);
+				error.res = res;
+				throw error;
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			const selectedTime = data.time;
+			return dispatch(
+				sendTimeSuccess(selectedTime)
+			); 
+		})
+		.catch((error) => {
+			return dispatch(
+				fetchTimeError(error)
+			);
+		});
+	}
+}
+
+/** Asyn Action exports */
+
+exports.sendTime = sendTime;
+exports.fetchTime = fetchTime;
+
+exports.SEND_TIME = SEND_TIME;
+exports.sendTimeSuccess = sendTimeSuccess;
+
+exports.FETCH_TIME = FETCH_TIME;
+exports.fetchTimeSuccess = fetchTimeSuccess;
+
+
+/** Action exports */
 
 exports.TIMER_START = TIMER_START;
 exports.timerStart = timerStart;
