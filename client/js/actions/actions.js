@@ -61,10 +61,17 @@ var changeTime = function(time) {
 	}
 };
 
-var TIMER_START = 'TIMER_START'
-var timerStart = function() {
+var WORK_TIMER_START = 'WORK_TIMER_START'
+var workTimerStart = function() {
 	return {
-		type: TIMER_START,
+		type: WORK_TIMER_START,
+	}
+};
+
+var BREAK_TIMER_START = 'BREAK_TIMER_START'
+var breakTimerStart = function() {
+	return {
+		type: BREAK_TIMER_START,
 	}
 };
 
@@ -166,8 +173,11 @@ exports.fetchTimeSuccess = fetchTimeSuccess;
 
 /** Action exports */
 
-exports.TIMER_START = TIMER_START;
-exports.timerStart = timerStart;
+exports.WORK_TIMER_START = WORK_TIMER_START;
+exports.workTimerStart = workTimerStart;
+
+exports.BREAK_TIMER_START = BREAK_TIMER_START;
+exports.breakTimerStart = breakTimerStart;
 
 exports.FETCH_ACCOUNT_ERROR = FETCH_ACCOUNT_ERROR;
 exports.fetchAccountError = fetchAccountError;

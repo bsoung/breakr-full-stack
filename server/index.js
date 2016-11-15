@@ -54,7 +54,7 @@ function runServer(callback) {
         }
 
         Time.findOne((err, item) => {
-            if (item) {    
+            if (item == null) {    
                 console.log("Did we create item????", item)
                 item = { time: null }
                 Time.create(item);
