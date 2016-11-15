@@ -34,9 +34,10 @@ var Timer = React.createClass({
 	},
 
 	render: function() {
-	console.log('TIME REMAINING', this.props.breakTimeRemaining);
-	console.log('START:::', this.props.start);
-	console.log('LOCAL STATE', this.state.input);
+	console.log(this.props.selectedTime);
+	// console.log('TIME REMAINING', this.props.breakTimeRemaining);
+	// console.log('START:::', this.props.start);
+	// console.log('LOCAL STATE', this.state.input);
 	return (
 
 	  <div className='container'> 

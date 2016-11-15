@@ -11,37 +11,42 @@ var initialState = {
 	breakTimeRemaining: null,
 };
 
-var settingsReducer = function(state, action) {
-	var copyState = state || initialState;
-	state = Object.assign({}, copyState);
-
-	if (action.type = actions.SELECT_IMAGE) {
-		state.selectedImage = action.selectedImage;
+var reducer = function(state=initialState, action={}) {
+	// var copyState = state || initialState;
+	// state = Object.assign({}, copyState);
+	const payload = {};
+	switch (action.type) {
+		case actions.SEND_TIME: 
+			console.log('*****************', action.time);
+			payload.selectedTime = action.time;
+			break;
+		case action.SELECT_IMAGE:
+			payload.selectImage = actions.selectImage;
+			break;
+		case action.CHECK_OPTIONS:
+			payload.checkedOptions = actions.checkedOptions
+			break;
+		case action.SELECT_MUSIC:
+			payload.selectedMusic = actions.selectedMusic
+			break;
+		case action.CHANGE_TIME:
+			payload.selectedTime = actions.selectedTime
+			break;
+		case action.WORK_TIMER_START:
+			payload.workTimeRemaining = (Date.now() + 60000)
+			break;
+		case action.BREAK_TIMER_START:
+			payload.breakTimeRemaining = (Date.now() + 60000)
+			break;
+		case action.FETCH_TIME:
+			payload.selectedTime = actions.time
+			break;
+		default: 
+			return state;
 	}
-	else if (action.type = actions.CHECK_OPTIONS) {
-		state.checkedOptions = action.checkedOptions;
-	}
-	else if (action.type = actions.SELECT_MUSIC) {
-		state.selectedMusic = action.selectedMusic;
-	}
-	else if (action.type = actions.CHANGE_TIME) {
-		state.selectedTime = action.selectedTime;
-	}
-	else if (action.type = actions.WORK_TIMER_START) {
-		state.start = true;
-		state.workTimeRemaining = (Date.now() + 600000);
-	}
-	else if (action.type = actions.BREAK_TIMER_START) {
-		start.start = true;
-		state.breakTimeRemaining = (Date.now() + 60000)
-	}
-	else if (action.type = actions.FETCH_TIME) {
-		state.selectedTime = action.time;
-	}
-
-	return state;
+	return Object.assign({}, state, payload);
 }
 
 
 
-module.exports = settingsReducer;
+module.exports = reducer;
