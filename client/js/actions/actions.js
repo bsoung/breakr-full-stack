@@ -69,9 +69,10 @@ var workTimerStart = function() {
 };
 
 var BREAK_TIMER_START = 'BREAK_TIMER_START'
-var breakTimerStart = function() {
+var breakTimerStart = function(minutes) {
 	return {
 		type: BREAK_TIMER_START,
+		minutes: minutes
 	}
 };
 

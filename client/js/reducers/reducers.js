@@ -15,30 +15,32 @@ var reducer = function(state=initialState, action={}) {
 	// var copyState = state || initialState;
 	// state = Object.assign({}, copyState);
 	const payload = {};
+	console.log("action type:    ", action.type);
 	switch (action.type) {
 		case actions.SEND_TIME: 
 			console.log('*****************', action.time);
 			payload.selectedTime = action.time;
 			break;
-		case action.SELECT_IMAGE:
+		case actions.SELECT_IMAGE:
 			payload.selectImage = actions.selectImage;
 			break;
-		case action.CHECK_OPTIONS:
+		case actions.CHECK_OPTIONS:
 			payload.checkedOptions = actions.checkedOptions
 			break;
-		case action.SELECT_MUSIC:
+		case actions.SELECT_MUSIC:
 			payload.selectedMusic = actions.selectedMusic
 			break;
-		case action.CHANGE_TIME:
+		case actions.CHANGE_TIME:
 			payload.selectedTime = actions.selectedTime
 			break;
-		case action.WORK_TIMER_START:
+		case actions.WORK_TIMER_START:
 			payload.workTimeRemaining = (Date.now() + 60000)
 			break;
-		case action.BREAK_TIMER_START:
+		case actions.BREAK_TIMER_START:
+		console.log("in reducer BreakTImerStart")
 			payload.breakTimeRemaining = (Date.now() + 60000)
 			break;
-		case action.FETCH_TIME:
+		case actions.FETCH_TIME:
 			payload.selectedTime = actions.time
 			break;
 		default: 

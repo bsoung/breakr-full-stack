@@ -16,25 +16,35 @@ import actions from '../actions/actions';
 
 var Timer = React.createClass({
 
-	getInitialState: function() {
-		return {
-			input: '',
-		}
-	},
+	// getInitialState: function() {
+	// 	return {
+	// 		input: '',
+	// 	}
+	// },
 
-	onInputChange: function(event) {
-		this.setState({input: event.target.value});
-	},
+	// onInputChange: function(event) {
+	// 	this.setState({input: event.target.value});
+	// },
 
 	onFormSubmit: function(event) {
 		event.preventDefault();
 		console.log('INSIDE')
-		this.props.dispatch(actions.sendTime(this.state.input));
-		this.setState({input: ''});
-	},
+		this.props.dispatch(actions.breakTimerStart(8));
+		//this.setState({input: ''});
+	},	
 
 	render: function() {
+	console.log('BREAKTIME::::', this.props.breakTimeRemaining - Date.now());
 	console.log(this.props.selectedTime);
+	console.log('PROPS:::::', this.props);
+
+	const timeLeft = this.props.breakTimeRemaining - Date.now();
+
+	if (timeLeft > 0) {
+		setTimeout(this.forceUpdate.bind(this), 1000);
+	}
+
+	
 	// console.log('TIME REMAINING', this.props.breakTimeRemaining);
 	// console.log('START:::', this.props.start);
 	// console.log('LOCAL STATE', this.state.input);
@@ -43,26 +53,25 @@ var Timer = React.createClass({
 	  <div className='container'> 
 
 	  	<div className='counts'>
-	  		<div className='workCount'>this is TIME REMAINING{this.props.workTimeRemaining}</div>
-	  		<div className='breakCount'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
+	  		<div className='workCount'>{this.props.selectedTime}</div>
+	  		<div className='breakCount'>{ Math.floor(timeLeft / 1000) } </div>
 		</div>
 
 		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="240" height="453" />
 
-		<form onSubmit={this.onFormSubmit} className='breakTimer'>
+		{/*<form onSubmit={this.onFormSubmit} className='breakTimer'>
 			<button type="button">-</button>
 			<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set break length' />
 			<button type="button">+</button>
 			<div><button type='submit'>Begin</button></div>
-		</form>
+		</form>*/}
 
-		<form className='workTimer'>
+		<form onSubmit={this.onFormSubmit} className='workTimer'>
 			<button type="button">-</button>
-			<input placeholder='Set work length' />
+			<input type='number' placeholder='Set work length' />
 			<button type="button">+</button>
+			<div><button type='submit'>Begin</button></div>
 		</form>
-
-		<button type='button'>Begin</button>
 
 	  </div>
 	);
@@ -72,11 +81,11 @@ var Timer = React.createClass({
 
 //onClick = action.timerStart 
 const mapStateToProps = (state, props) => {
-
+	console.log('STATE::::', state);
 	return {
 		start: state.start,
 		breakTimeRemaining: state.breakTimeRemaining,
-		workTimeRemaining: state.workTimeRemaining,
+		//workTimeRemaining: state.workTimeRemaining,
 		selectedTime: state.selectedTime
 	}
 }
