@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import actions from './actions/actions';
 
 // const Timer = () => {
 // 	return (
@@ -15,23 +16,34 @@ import {connect} from 'react-redux';
 
 var Timer = React.createClass({
   render: function() {
-    console.log('TIME REMAINING', this.props.timeRemaining);
+    console.log('TIME REMAINING', this.props.breakTimeRemaining);
     console.log('START:::', this.props.start);
     return (
-      <div> 
-      	<div>this is TIME REMAINING{this.props.timeRemaining}</div>
+
+      <div className='container'> 
+
+      	<div className='counts'>
+      		<div className='workCount'>this is TIME REMAINING{this.props.workTimeRemaining}</div>
+      		<div className='breakCount'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
+		</div>
+
 		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="480" height="907" />
-		<div>this is START {this.props.start}</div>
+
+		<div className='breakStart'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
+			<div>this is START {this.props.start}</div>
 	  </div>
     );
   }
 });
 
+
+//onClick = action.timerStart 
 const mapStateToProps = (state, props) => {
 
 	return {
 		start: state.start,
-		timeRemaining: state.timeRemaining
+		breakTimeRemaining: state.breakTimeRemaining,
+		workTimeRemaining: state.workTimeRemaining,
 	}
 }
 
