@@ -30,6 +30,9 @@ var settingsReducer = function(state, action) {
 		state.start = true;
 		state.timeRemaining = (Date.now() + 600000);
 	}
+	else if (action.type = actions.FETCH_TIME) {
+		state.selectedTime = action.time;
+	}
 
 	return state;
 }
