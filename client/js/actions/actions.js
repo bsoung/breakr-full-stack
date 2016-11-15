@@ -87,6 +87,7 @@ const fetchTimeError = (error) => {
 
 const SEND_TIME = 'SEND_TIME';
 const sendTimeSuccess = (time) => {
+	console.log('action creator time:   ', time);
 	return {
 		type: SEND_TIME,
 		time: time
@@ -147,6 +148,7 @@ const sendTime = (time) => {
 		})
 		.then((data) => {
 			const selectedTime = data.time;
+			console.log('selectedTime is:    ', selectedTime);
 			return dispatch(
 				sendTimeSuccess(selectedTime)
 			); 
