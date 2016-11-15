@@ -15,26 +15,58 @@ import actions from '../actions/actions';
 
 
 var Timer = React.createClass({
-  render: function() {
-    console.log('TIME REMAINING', this.props.breakTimeRemaining);
-    console.log('START:::', this.props.start);
-    return (
 
-      <div className='container'> 
+	getInitialState: function() {
+		return {
+			input: '',
+		}
+	},
 
-      	<div className='counts'>
-      		<div className='workCount'>this is TIME REMAINING{this.props.workTimeRemaining}</div>
-      		<div className='breakCount'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
+	onInputChange: function(event) {
+		this.setState({input: event.target.value});
+	},
+
+	onFormSubmit: function(event) {
+		event.preventDefault();
+		console.log('INSIDE')
+		this.props.dispatch(actions.sendTime(this.state.input));
+		this.setState({input: ''});
+	},
+
+	render: function() {
+	console.log('TIME REMAINING', this.props.breakTimeRemaining);
+	console.log('START:::', this.props.start);
+	console.log('LOCAL STATE', this.state.input);
+	return (
+
+	  <div className='container'> 
+
+	  	<div className='counts'>
+	  		<div className='workCount'>this is TIME REMAINING{this.props.workTimeRemaining}</div>
+	  		<div className='breakCount'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
 		</div>
 
-		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="480" height="907" />
+		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="240" height="453" />
 
-		<div className='breakStart'>this is TIME REMAINING{this.props.breakTimeRemaining}</div>
-			<div>this is START {this.props.start}</div>
+		<form onSubmit={this.onFormSubmit} className='breakTimer'>
+			<button type="button">-</button>
+			<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set break length' />
+			<button type="button">+</button>
+			<div><button type='submit'>Begin</button></div>
+		</form>
+
+		<form className='workTimer'>
+			<button type="button">-</button>
+			<input placeholder='Set work length' />
+			<button type="button">+</button>
+		</form>
+
+		<button type='button'>Begin</button>
+
 	  </div>
-    );
-  }
-});
+	);
+	}
+	});
 
 
 //onClick = action.timerStart 
@@ -44,6 +76,7 @@ const mapStateToProps = (state, props) => {
 		start: state.start,
 		breakTimeRemaining: state.breakTimeRemaining,
 		workTimeRemaining: state.workTimeRemaining,
+		selectedTime: state.selectedTime
 	}
 }
 
