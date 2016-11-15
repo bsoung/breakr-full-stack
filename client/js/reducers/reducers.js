@@ -7,7 +7,8 @@ var initialState = {
 	selectedMusic: null,
 	selectedTime: 0,
 	start: false,
-	timeRemaining: null,
+	workTimeRemaining: null,
+	breakTimeRemaining: null,
 };
 
 var settingsReducer = function(state, action) {
@@ -26,9 +27,13 @@ var settingsReducer = function(state, action) {
 	else if (action.type = actions.CHANGE_TIME) {
 		state.selectedTime = action.selectedTime;
 	}
-	else if (action.type = actions.TIMER_START) {
+	else if (action.type = actions.WORK_TIMER_START) {
 		state.start = true;
-		state.timeRemaining = (Date.now() + 600000);
+		state.workTimeRemaining = (Date.now() + 600000);
+	}
+	else if (action.type = actions.BREAK_TIMER_START) {
+		start.start = true;
+		state.breakTimeRemaining = (Date.now() + 60000)
 	}
 	else if (action.type = actions.FETCH_TIME) {
 		state.selectedTime = action.time;
