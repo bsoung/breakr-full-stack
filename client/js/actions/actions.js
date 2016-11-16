@@ -62,9 +62,10 @@ var changeTime = function(time) {
 };
 
 var WORK_TIMER_START = 'WORK_TIMER_START'
-var workTimerStart = function() {
+var workTimerStart = function(minutes) {
 	return {
 		type: WORK_TIMER_START,
+		minutes: minutes
 	}
 };
 
