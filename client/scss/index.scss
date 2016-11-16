@@ -55,8 +55,7 @@
 
 
 
-HTML  CSS  JS  Result
-Edit on 
+
 body{
     text-align: center;
     background: #00ECB9;
@@ -71,7 +70,7 @@ h1{
   margin: 40px 0px 20px;
 }
 
-#clockdiv{
+.clockdiv{
     font-family: sans-serif;
     color: #fff;
     display: inline-block;
@@ -80,14 +79,14 @@ h1{
     font-size: 30px;
 }
 
-#clockdiv > div{
+.clockdiv > div{
     padding: 10px;
     border-radius: 3px;
     background: #00BF96;
     display: inline-block;
 }
 
-#clockdiv div > span{
+.clockdiv div > span{
     padding: 15px;
     border-radius: 3px;
     background: #00816A;
