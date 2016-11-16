@@ -29,54 +29,53 @@ var Timer = React.createClass({
 	onFormSubmit: function(event) {
 		event.preventDefault();
 		this.props.dispatch(actions.breakTimerStart(this.state.input));
-		//this.setState({input: ''});
+		this.setState({input: ''});
 	},	
 
 	render: function() {
-	// console.log('BREAKTIME::::', this.props.breakTimeRemaining - Date.now());
-	// console.log(this.props.selectedTime);
-	// console.log('PROPS:::::', this.props);
+  	let timeLeft = this.props.breakTimeRemaining - Date.now();
 
- //  console.log("What's breaktime", this.props.breakTimeRemaining)
-	let timeLeft = this.props.breakTimeRemaining - Date.now();
+  	if (timeLeft > 0) {
+  		setTimeout(this.forceUpdate.bind(this), 1000);
+  	}
 
-	if (timeLeft > 0) {
-		setTimeout(this.forceUpdate.bind(this), 1000);
+  	return (
+
+  	  <div className='timer'> 
+
+    	  <div className='counts'>
+    	  	{/*<div className='workCount'>{this.props.selectedTime}</div>*/}
+    	  	<div className='break-count'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft / 1000) } </div>
+    		</div>
+
+        <div className='hourglass-img'>
+          <img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" height="453" />
+        </div>
+    		
+
+    		{/*<form onSubmit={this.onFormSubmit} className='breakTimer'>
+    			<button type="button">-</button>
+    			<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set break length' />
+    			<button type="button">+</button>
+    			<div><button type='submit'>Begin</button></div>
+    		</form>*/}
+
+    		<form onSubmit={this.onFormSubmit} className='workTimer'>
+          <div className='countdown-btn'>
+            <button type="button">-</button>
+            <input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
+            <button type="button">+</button>
+          </div>
+
+    			<div><button className='submit-btn' type='submit'>Begin</button></div>
+    		</form>
+
+  	  </div>
+  	 );
+
 	}
 
-	
-	// console.log('TIME REMAINING', this.props.breakTimeRemaining);
-	// console.log('START:::', this.props.start);
-	// console.log('LOCAL STATE', this.state.input);
-	return (
-
-	  <div className='container'> 
-
-	  	<div className='counts'>
-	  		<div className='workCount'>{this.props.selectedTime}</div>
-	  		<div className='breakCount'>{ timeLeft < 0 ? 'Finished' : Math.floor(timeLeft / 1000) } </div>
-		</div>
-
-		<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="240" height="453" />
-
-		{/*<form onSubmit={this.onFormSubmit} className='breakTimer'>
-			<button type="button">-</button>
-			<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set break length' />
-			<button type="button">+</button>
-			<div><button type='submit'>Begin</button></div>
-		</form>*/}
-
-		<form onSubmit={this.onFormSubmit} className='workTimer'>
-			<button type="button">-</button>
-			<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
-			<button type="button">+</button>
-			<div><button type='submit'>Begin</button></div>
-		</form>
-
-	  </div>
-	);
-	}
-	});
+});
 
 
 //onClick = action.timerStart 
