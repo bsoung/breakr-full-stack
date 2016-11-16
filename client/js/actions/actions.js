@@ -136,7 +136,7 @@ const sendTime = (time) => {
 		const url = '/timer';
 		return fetch(url, {method: 'post', 
 			body: '{"time": '+ time + '}', 
-			headers: {'content-type': 'application/json', 'Accept':'appliction/json'}  })
+			headers: {'content-type': 'application/json', 'Accept':'application/json'}  })
 
 		.then((res) => {
 			if (res.status < 200 || res.status >= 300) {
@@ -162,7 +162,7 @@ const sendTime = (time) => {
 	}
 }
 
-/** Asyn Action exports */
+/** Async Action exports */
 
 exports.sendTime = sendTime;
 exports.fetchTime = fetchTime;
