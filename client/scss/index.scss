@@ -1,5 +1,3 @@
-
-
 .container {
  	display: flex;
 }
@@ -43,6 +41,17 @@
 
 .submit-btn {
 	margin-top: 10px;
+  background-color: #00816A;
+  color: #fff;
+  border-radius: 5px;
+  font-family: sans-serif;
+}
+
+.plusMinus {
+  background-color: #00816A;
+  color: #fff;
+  border-radius: 5px;
+  font-family: sans-serif;
 }
 
 .countdown-btn {
@@ -97,5 +106,13 @@ h2{
 }
 
 .hourglass-img {
+  margin: auto;
+  width: 238px;
+  border: 8px solid #00816A;
   border-radius: 10px;
+}
+
+.glass {
+  margin-left: -17px;
+  margin-top: 2px;
 }

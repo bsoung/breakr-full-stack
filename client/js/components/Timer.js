@@ -130,23 +130,23 @@ var Timer = React.createClass({
 		</div>
 
 		<div width='240' className='hourglass-img'>
-			<img  src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" />
+			<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" />
 		</div>
 
-		<form onSubmit={this.onBreakFormSubmit} className='breakTimer'>
+		<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
 			<div className='countdown-btn'>
-				<button type="button">-</button>
+				<button className='plusMinus' type="button">-</button>
 				<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
-				<button type="button">+</button>
+				<button className='plusMinus' type="button">+</button>
 			</div>
 			<div><button className='submit-btn' type='submit'>Begin</button></div>
 		</form>
 
-		<form onSubmit={this.onFormSubmit} className='workTimer'>
+		<form onSubmit={this.onFormSubmit} className='workTimerForm'>
 			<div className='countdown-btn'>
-				<button type="button">-</button>
+				<button className='plusMinus' type="button">-</button>
 				<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
-				<button type="button">+</button>
+				<button className='plusMinus' type="button">+</button>
 			</div>
 			<div><button className='submit-btn' type='submit'>Begin</button></div>
 		</form>
