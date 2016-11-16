@@ -70,6 +70,7 @@ var workTimerStart = function() {
 
 var BREAK_TIMER_START = 'BREAK_TIMER_START'
 var breakTimerStart = function(minutes) {
+	console.log("minutes?", minutes)
 	return {
 		type: BREAK_TIMER_START,
 		minutes: minutes
