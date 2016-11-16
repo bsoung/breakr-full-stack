@@ -35,10 +35,6 @@
 	margin-right: 5px;
 }
 
-.break-count {
-	margin-bottom: 30px;
-	font-size: 50px;
-}
 
 .drop-down {
 	padding-top: 20px;
@@ -53,9 +49,6 @@
 	margin-top: 10px;
 }
 
-
-
-
 body{
     text-align: center;
     background: #00ECB9;
@@ -63,7 +56,7 @@ body{
   font-weight: 100;
 }
 
-h1{
+h2{
   color: #396;
   font-weight: 100;
   font-size: 40px;
@@ -77,6 +70,7 @@ h1{
     font-weight: 100;
     text-align: center;
     font-size: 30px;
+    margin: 10px 60px;
 }
 
 .clockdiv > div{
@@ -96,4 +90,12 @@ h1{
 .smalltext{
     padding-top: 5px;
     font-size: 16px;
+}
+
+.breakTimer, .workTimer {
+  display: inline-block;
+}
+
+.hourglass-img {
+  border-radius: 10px;
 }
