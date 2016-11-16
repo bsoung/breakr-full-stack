@@ -58,41 +58,100 @@ var Timer = React.createClass({
 	},	
 
 	render: function() {
-  	// let timeLeft = this.props.breakTimeRemaining - Date.now();
-   //  let time2 = Math.abs(timeLeft);
-  	// if (timeLeft > 0) {
-  	// 	setTimeout(this.forceUpdate.bind(this), 1000);
-  	// }
-   //  if (time2 <= 500) {
+  	let timeLeft = this.props.breakTimeRemaining - Date.now();
+    let time2 = Math.abs(timeLeft);
+  	if (timeLeft > 0) {
+  		setTimeout(this.forceUpdate.bind(this), 1000);
+  	}
+    if (time2 <= 500) {
 
-   //    this.notifyMe();
+      this.notifyMe();
 
-   //  }
+    }
 
-   //  let workTimeLeft = this.props.workTimeRemaining - Date.now();
-   //  let workTime2 = Math.abs(workTimeLeft);
-  	// if (workTimeLeft > 0) {
-  	// 	setTimeout(this.forceUpdate.bind(this), 1000);
-  	// }
-   //  if (workTime2 <= 500) {
+    let workTimeLeft = this.props.workTimeRemaining - Date.now();
+    let workTime2 = Math.abs(workTimeLeft);
+  	if (workTimeLeft > 0) {
+  		setTimeout(this.forceUpdate.bind(this), 1000);
+  	}
+    if (workTime2 <= 500) {
 
-   //    this.notifyMe();
-   //  }
+      this.notifyMe();
+    }
    	const hours = 2;
    	const minutes = 10;
 
   	return (
-  		<div>
-  			<h1>Break Timer</h1>
-  			<Clock deadline={Date.now() + hours * 60 * 60 * 1000} />
 
-  			<h1>Work Timer</h1>
-  			<Clock deadline={Date.now() + hours * 60 * 60 * 1000} />
+  		<div className='timer'> 
 
-  			<div className='hourglass-img'>
-				<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" height="453" />
+  	  	{ time2 <= 500 ? <Sound url="../assets/alarm_sound.mp3"
+						    playStatus={Sound.status.PLAYING}
+						    playFromPosition={300 }
+						    onLoading={this.handleSongLoading}
+						    onPlaying={this.handleSongPlaying}
+						    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
+
+		{ workTime2 <= 500 ? <Sound url="../assets/alarm_sound.mp3"
+						    playStatus={Sound.status.PLAYING}
+						    playFromPosition={300 }
+						    onLoading={this.handleSongLoading}
+						    onPlaying={this.handleSongPlaying}
+						    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
+  	  	
+  	  	<div className='breakTimer'>
+			<h2>Break Timer</h2>
+			<div className='clockdiv'>
+				<div>
+					<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
+					<div className='smalltext'>Minutes</div> 
+				</div> 
+					
+				<div>	
+					<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
+					<div className='smalltext'>Seconds</div>
+				</div>
 			</div>
-  	 	</div>
+		</div>
+
+		<div className='workTimer'>
+			<h2>Work Timer</h2>
+			<div className='clockdiv'>
+				<div>
+					<span className='minutes'>{ workTimeLeft < 0 ? 0 : Math.floor(workTimeLeft/1000/60)}</span>
+					<div className='smalltext'>Minutes</div> 
+				</div>
+
+				<div>
+					<span className='seconds'>{ workTimeLeft < 0 ? 0 : Math.floor((workTimeLeft / 1000)%60) }</span> 
+					<div className='smalltext'>Seconds</div>
+				</div>
+			</div>
+		</div>
+
+		<div width='240' className='hourglass-img'>
+			<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" />
+		</div>
+
+		<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
+			<div className='countdown-btn'>
+				<button className='plusMinus' type="button">-</button>
+				<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
+				<button className='plusMinus' type="button">+</button>
+			</div>
+			<div><button className='submit-btn' type='submit'>Begin</button></div>
+		</form>
+
+		<form onSubmit={this.onFormSubmit} className='workTimerForm'>
+			<div className='countdown-btn'>
+				<button className='plusMinus' type="button">-</button>
+				<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
+				<button className='plusMinus' type="button">+</button>
+			</div>
+			<div><button className='submit-btn' type='submit'>Begin</button></div>
+		</form>
+
+	  </div>
   	 );
 	}
 
@@ -131,9 +190,15 @@ module.exports = Container;
 						    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
   	  	
 
-		<div className='counts'>
+		<div className='clockdiv'>
 			
-			<div className='break-count'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)} : { timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) } </div>
+			<div className='break-count'>
+				<span className='hours'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
+				<div className='smalltext'>Hours</div>  
+				
+				<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
+				<div className='smalltext'>Minutes</div>
+			</div>
 		</div>
 
 		<div className='counts'>
@@ -164,3 +229,18 @@ module.exports = Container;
 		</form>
 
 	  </div> */
+
+
+
+/*<h1>Break Timer</h1>
+  			<Clock deadline={Date.now() + hours * 60 * 60 * 1000} />
+
+  			<h1>Work Timer</h1>
+  			<Clock deadline={Date.now() + hours * 60 * 60 * 1000} />
+
+  			<div className='hourglass-img'>
+				<img src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" height="453" />
+			</div>*/
+
+
+
