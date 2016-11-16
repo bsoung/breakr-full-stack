@@ -15,10 +15,9 @@ var reducer = function(state=initialState, action={}) {
 	// var copyState = state || initialState;
 	// state = Object.assign({}, copyState);
 	const payload = {};
-	console.log("action type:    ", action.type);
+	console.log("action:    ", action);
 	switch (action.type) {
 		case actions.SEND_TIME: 
-			console.log('*****************', action.time);
 			payload.selectedTime = action.time;
 			break;
 		case actions.SELECT_IMAGE:
@@ -34,11 +33,10 @@ var reducer = function(state=initialState, action={}) {
 			payload.selectedTime = actions.selectedTime
 			break;
 		case actions.WORK_TIMER_START:
-			payload.workTimeRemaining = (Date.now() + 60000)
+			payload.workTimeRemaining = (Date.now() + (action.minutes * 1000))
 			break;
 		case actions.BREAK_TIMER_START:
-		console.log("in reducer BreakTImerStart")
-			payload.breakTimeRemaining = (Date.now() + 60000)
+			payload.breakTimeRemaining = (Date.now() + (action.minutes * 1000))
 			break;
 		case actions.FETCH_TIME:
 			payload.selectedTime = actions.time
