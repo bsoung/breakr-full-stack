@@ -1,21 +1,16 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Timer from './components/Timer';
-//import Settings from './components/Settings';
 var Provider = require('react-redux').Provider;
-var store = require('./store');
-import Clock from './components/Clock'
-
+import store from './store';
+import { Router, browserHistory } from 'react-router';
+import routes from './Route';
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
 
 document.addEventListener('DOMContentLoaded', () => {
-	ReactDOM.render(
-		<div className='container' >
+	ReactDOM.render( 
 			<Provider store={store}>
-				<Timer />	
-			</Provider>
-		</div>, 
-		document.getElementById('app'))
+				<Router history={browserHistory} routes={routes} />
+			</Provider>, document.getElementById('app'))
 })
