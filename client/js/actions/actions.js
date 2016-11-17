@@ -32,6 +32,14 @@ export function setUser (user) {
 	}
 }
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+export function logOut (user) {
+	return {
+		type: LOGOUT_USER,
+		user: user
+	}
+}
+
 export function logIn (username, password) {
 	return (dispatch) => {
 		const url = '/api/login';
@@ -53,12 +61,14 @@ export function logIn (username, password) {
 				throw error;
 			}
 
-			dispatch(
-				setUser(res.json().user)
-			);
-
-			return; 
+			return res.json()	
 		
+		})
+		.then((data) => {
+			console.log(data)
+			return dispatch(
+				setUser(data.user.username)
+			)
 		})
 		
 		.catch((error) => {
@@ -116,11 +126,13 @@ export function createUser (username, password) {
 				throw error;
 			}
 
-			dispatch(
-				setUser(res.json().user)
+			return res.json();
+		})
+		.then((data) => {
+			console.log(data)
+			return dispatch(
+				setUser(data.user)
 			)
-
-			return;
 		})
 
 		.catch((error) => {

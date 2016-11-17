@@ -28,6 +28,7 @@ passport.use(new Strategy({ session: false },
                 return callback(null, false, {
                     message: 'Incorrect Username'
                 });
+                
             }
 
             user.validatePassword(password, (err, isValid) => {
@@ -57,6 +58,7 @@ passport.use(new Strategy({ session: false },
 
 // optional account creation
 app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
+    
     res.status(200).json({user: req.user});
 });
 

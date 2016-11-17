@@ -11,19 +11,20 @@ class Login extends Component {
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
-	// componentDidMount () {
-	// 	this.checkUser(this.props.user);
-	// }
+	componentDidMount () {
+		this.checkUser(this.props.user);
+	}
 
-	// componentWillReceiveProps (nextProps) { // react router lifecycle
-	// 	this.checkUser(nextProps.user);
-	// }
+	componentWillReceiveProps (nextProps) { // react router lifecycle
+		this.checkUser(nextProps.user);
+		console.log("LOGGED IN AS", this.props.user)
+	}
 
-	// checkUser (user) {
-	// 	if (user !== null) {
-	// 		this.props.router.replace('/timer');
-	// 	}
-	// }
+	checkUser (user) {
+		if (user !== null) {
+			this.props.router.replace('/timer');
+		}
+	}
 
 	handleFormSubmit (e) {
 		e.preventDefault();
@@ -36,9 +37,7 @@ class Login extends Component {
 			return
 		}  
 
-		this.props.logIn(user, pass).then(() => {
-			this.props.router.replace('/timer');
-		});
+		this.props.logIn(user, pass);
 		
 	}
 
