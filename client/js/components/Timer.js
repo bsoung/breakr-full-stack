@@ -167,12 +167,9 @@ class Timer extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-	console.log('STATE::::', state);
 	return {
-		start: state.start,
 		breakTimeRemaining: state.breakTimeRemaining,
-		workTimeRemaining: state.workTimeRemaining,
-		selectedTime: state.selectedTime
+		workTimeRemaining: state.workTimeRemaining
 	}
 }
 
