@@ -31,6 +31,11 @@ class CreateAccount extends Component {
 		const pass = e.target.password.value;
 		const repass = e.target.passwordAgain.value;
 
+		if (!user || !pass || !repass) {
+			alert('Please enter a username and password!');
+			return;
+		}
+
 		if (pass !== repass) {
 			alert('Password does not match!')
 			return;
