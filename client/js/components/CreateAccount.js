@@ -41,11 +41,8 @@ class CreateAccount extends Component {
 			return;
 		}  
 
-		this.props.createUser(user, pass).then(() => {
-			alert('Account Created!');
-			this.props.router.replace('/'); // TODO 
-		});
-		
+		this.props.router.push('/timer');
+
 	}
 
 	render () {
