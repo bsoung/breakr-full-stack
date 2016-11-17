@@ -31,6 +31,11 @@ class Login extends Component {
 		const user = e.target.username.value;
 		const pass = e.target.password.value;
 
+		if (!user || !pass) {
+			alert("Please enter a username and password!")
+			return
+		}  
+
 		this.props.logIn(user, pass).then(() => {
 			this.props.router.replace('/timer');
 		});
