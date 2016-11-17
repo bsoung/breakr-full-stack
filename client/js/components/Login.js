@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logIn, guestLogin } from '../actions/actions';
 import { Link } from 'react-router';
-import { reduxForm } from 'redux-form';
+
 
 class Login extends Component {
 	constructor (props) {
@@ -18,7 +18,6 @@ class Login extends Component {
 
 	componentWillReceiveProps (nextProps) { // react router lifecycle
 		this.checkUser(nextProps.user);
-		console.log("LOGGED IN AS", this.props.user)
 	}
 
 	checkUser (user) {
@@ -49,7 +48,7 @@ class Login extends Component {
 
 	render () {
 		// const { fields: { username, password} } = this.props;
-
+		
 		return (
 			<div className='login'>
 				<h2>Welcome to Breakr</h2>
@@ -79,25 +78,25 @@ class Login extends Component {
 	}
 }
 
-const validate = (values) => {
-	const errors = {};
+// const validate = (values) => {
+// 	const errors = {};
 
-	if (!values.username) {
-		errors.username = 'Enter a username';
-	}
+// 	if (!values.username) {
+// 		errors.username = 'Enter a username';
+// 	}
 
-	if (!values.password) {
-		errors.password = 'Enter a password';
-	}
+// 	if (!values.password) {
+// 		errors.password = 'Enter a password';
+// 	}
 
-	return errors;
-}
+// 	return errors;
+// }
 
-const validateObject = {
-	form: 'Login',
-	fields: ['username', 'password'],
-	validate
-}
+// const validateObject = {
+// 	form: 'Login',
+// 	fields: ['username', 'password'],
+// 	validate
+// }
 
 const mapStateToProps = (state) => {
 	return {

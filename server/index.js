@@ -58,7 +58,7 @@ passport.use(new Strategy({ session: false },
 
 // optional account creation
 app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
-    
+
     res.status(200).json({user: req.user});
 });
 
@@ -102,6 +102,8 @@ function runServer (callback) {
         if (err && callback) {
             return callback(err);
         }
+
+        
 
         app.listen(config.PORT, process.env.IP, () => {
             console.log(`Listening on localhost: ${config.PORT}`);

@@ -64,17 +64,13 @@ class Timer extends Component {
 	}
 
 	onClickLogout (e) {
-		// e.preventDefault()
-		console.log(this.props.user)
 		this.props.logOut(this.props.user)
-		console.log(this.props.user)
-			// this.props.router.replace('/');
 		
 	}
 
 	render () {
 
-	console.log(this.props)
+	console.log('the user is ', this.props.user)
 		
   	let timeLeft = this.props.breakTimeRemaining - Date.now();
     let time2 = Math.abs(timeLeft);
@@ -101,9 +97,31 @@ class Timer extends Component {
 
   	return (
 	  	<div className='timer'> 
+	  		{this.props.user === null || this.props.user === 'guest' ? 
+
 	  		<Link to='/' onClick={this.onClickLogout}>
-	  			<button className='btn button-danger logout-btn'>Logout</button>
+	  			<button className='btn btn-danger logout-btn'>
+	  			Login
+	  			</button>
 	  		</Link>
+
+	  		:
+
+	  		<Link to='/' onClick={this.onClickLogout}>
+	  			<button className='btn btn-danger logout-btn'>Logout</button>
+	  		</Link>
+
+	  		}
+
+	  		
+
+	  		{this.props.user === null || this.props.user === 'guest' ? '' : 
+		  		<Link to='/profile' onClick={this.onClickLogout}>
+		  			<button className='btn btn-primary logout-btn'>Account</button>
+		  		</Link>
+	  		}
+
+
 
 	  	  	{ time2 <= 500 ? <Sound url="../assets/alarm_sound.mp3"
 							    playStatus={Sound.status.PLAYING}
