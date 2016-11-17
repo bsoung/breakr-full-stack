@@ -10,19 +10,19 @@ class CreateAccount extends Component {
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
-	// componentDidMount () {
-	// 	this.checkUser(this.props.user);
-	// }
+	componentDidMount () {
+		this.checkUser(this.props.user);
+	}
 
-	// componentWillReceiveProps (nextProps) { // react router lifecycle
-	// 	this.checkUser(nextProps.user);
-	// }
+	componentWillReceiveProps (nextProps) { // react router lifecycle
+		this.checkUser(nextProps.user);
+	}
 
-	// checkUser (user) {
-	// 	if (user !== null) {
-	// 		this.props.router.replace('/timer');
-	// 	}
-	// }
+	checkUser (user) {
+		if (user !== null) {
+			this.props.router.replace('/timer');
+		}
+	}
 
 	handleFormSubmit (e) {
 		e.preventDefault();

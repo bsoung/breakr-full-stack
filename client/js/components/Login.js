@@ -12,9 +12,9 @@ class Login extends Component {
 		this.onClickSkip = this.onClickSkip.bind(this);
 	}
 
-	componentDidMount () {
-		this.checkUser(this.props.user);
-	}
+	// componentDidMount () {
+	// 	this.checkUser(this.props.user);
+	// }
 
 	componentWillReceiveProps (nextProps) { // react router lifecycle
 		this.checkUser(nextProps.user);
@@ -23,7 +23,7 @@ class Login extends Component {
 	checkUser (user) {
 		if (user !== null) {
 			this.props.router.replace('/timer');
-		}
+		} 
 	}
 
 	handleFormSubmit (e) {
@@ -37,8 +37,7 @@ class Login extends Component {
 			return
 		}  
 
-		this.props.logIn(user, pass);
-		
+		this.props.logIn(user, pass);	
 	}
 
 	onClickSkip (e) {

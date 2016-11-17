@@ -8,14 +8,27 @@ import User from '../models/User';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import { Strategy } from 'passport-local';
+import expressSession from 'express-session';
 
 const app = express();
 const jsonParser = bodyParser.json();
 
 app.use(express.static(process.env.CLIENT_PATH));
+app.use(expressSession({secret: 'mySecretKey'})); //TODO: Generate from /dev/urandom
 app.use(passport.initialize());
+app.use(passport.session());
 
-passport.use(new Strategy({ session: false },
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+ 
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new Strategy({ session: true },
   function (username, password, callback) {
     User.findOne({
         username: username
@@ -50,14 +63,8 @@ passport.use(new Strategy({ session: false },
 
 // our model for storing timer
 
-
-// app.get('/user', (req, res) => {
-//     res.status(200).json({message: 'Ok'})
-    
-// })
-
 // optional account creation
-app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
+app.post('/api/login', jsonParser, passport.authenticate('local', { session: true }), (req, res) => {
 
     res.status(200).json({user: req.user});
 });
