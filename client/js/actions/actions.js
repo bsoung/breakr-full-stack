@@ -119,6 +119,8 @@ export function createUser (username, password) {
 			dispatch(
 				setUser(res.json().user)
 			)
+
+			return;
 		})
 
 		.catch((error) => {
