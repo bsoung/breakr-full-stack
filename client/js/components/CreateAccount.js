@@ -52,17 +52,17 @@ class CreateAccount extends Component {
 				<form onSubmit={this.handleFormSubmit}>
 					
 					<div className='form-group'>
-						<label>Username</label>
+						<label className='username'>Username</label>
 						<input name='username' type='text' className='form-control' />  
 					</div>
 
 					<div className='form-group'>
-						<label>Password</label>
+						<label className='genpassword'>Password</label>
 						<input name='password' type='password' className='form-control' />  
 					</div>
 
 					<div className='form-group'>
-						<label>Retype Password</label>
+						<label className="password">Retype Password</label>
 						<input name='passwordAgain' type='password' className='form-control' />  
 					</div>
 
