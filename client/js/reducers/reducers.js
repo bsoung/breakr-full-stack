@@ -9,8 +9,7 @@ import {
 const initialState = {
 	workTimeRemaining: null,
 	breakTimeRemaining: null,
-	user: null,
-	loggedIn: false
+	user: null
 };
 
 export default function (state=initialState, action={}) {

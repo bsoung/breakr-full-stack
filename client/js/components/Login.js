@@ -7,9 +7,7 @@ import { Link } from 'react-router';
 class Login extends Component {
 	constructor (props) {
 		super(props);
-
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
 	}
 
 	componentDidMount () {

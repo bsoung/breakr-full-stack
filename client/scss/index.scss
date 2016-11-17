@@ -2,8 +2,28 @@
   float: right;
 }
 
+.profile {
+  border: 8px solid #00816A;
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  margin-top: 27px;
+}
+
+.habit-info {
+  border: 2px solid #00816A;
+}
+
+.profile-info {
+  text-align: center;
+}
+
 .btn {
   margin-right: 10px;
+}
+
+.back-btn {
+  float: right;
 }
 
 .timer-block {
