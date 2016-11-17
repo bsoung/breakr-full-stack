@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Clock extends Component {
+export default class Clock extends Component {
     render () {
 
     let t = this.props.deadline - Date.now();
@@ -34,4 +34,3 @@ class Clock extends Component {
   }
 }
 
-export default Clock;

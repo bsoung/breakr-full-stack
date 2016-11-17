@@ -26,6 +26,7 @@ export default function (state=initialState, action={}) {
 		default: 
 			return state;
 	}
+
 	return Object.assign({}, state, payload);
 }
 
