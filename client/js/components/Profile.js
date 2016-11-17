@@ -9,10 +9,11 @@ class Profile extends Component {
 				<Link to='/timer' >
 					<button className='btn btn-primary back-btn'>Back</button>
 				</Link>
-				<h3 className='profile-intro' >Welcome, {this.props.user}</h3>
+				<h3 className='profile-intro' style={{marginLeft: '60px'}} >Hello {this.props.user.username}</h3>
 				<div className='habit-info'>
 					<h4>Statistics</h4>
 					<p>Number of Breaks</p>
+					<p>Number of Works</p>
 					<p>Total Break Time</p>
 					<p>Total Work Time</p>
 				</div>
