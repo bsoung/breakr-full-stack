@@ -46,7 +46,9 @@ class Login extends Component {
 
 		return (
 			<div className='login'>
-				<h2>Welcome to Breakr</h2>
+				<div className='header'>
+				<h2 className='welcome'>Welcome to </h2><h1 className='breakrLogin'>Breakr</h1>
+				</div>
 				<form onSubmit={this.handleFormSubmit}>
 					
 					<div className='form-group'>

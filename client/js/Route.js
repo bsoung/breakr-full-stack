@@ -10,7 +10,7 @@ import CreateAccount from './components/CreateAccount';
 
 export default (
 	<Route path='/' component={App}>
-		<IndexRoute component={Login} />
+		<IndexRoute component={Timer} />
 		<Route path='timer' component={Timer} />
 		<Route path='signup' component={CreateAccount} />
 	</Route>
