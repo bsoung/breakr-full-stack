@@ -11,7 +11,7 @@ import Profile from './components/Profile';
 
 export default (
 	<Route path='/' component={App}>
-		<IndexRoute component={Timer} />
+		<IndexRoute component={Login} />
 		<Route path='timer' component={Timer} />
 		<Route path='signup' component={CreateAccount} />
 		<Route path='profile' component={Profile} />
