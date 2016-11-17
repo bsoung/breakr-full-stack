@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../actions/actions';
+import { logIn, guestLogin } from '../actions/actions';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 
@@ -9,6 +9,7 @@ class Login extends Component {
 		super(props);
 
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+		this.onClickSkip = this.onClickSkip.bind(this);
 	}
 
 	componentDidMount () {
@@ -41,6 +42,11 @@ class Login extends Component {
 		
 	}
 
+	onClickSkip (e) {
+		e.preventDefault();
+		this.props.guestLogin()
+	}
+
 	render () {
 		// const { fields: { username, password} } = this.props;
 
@@ -62,7 +68,10 @@ class Login extends Component {
 					</div>
 					<button type='submit' className='btn btn-primary'>Login</button>
 					<Link to='/signup' className='btn btn-primary'>Register</Link>
+					<button onClick={this.onClickSkip} type='button' className='btn btn-primary'>Guest</button>
+					
 				</form>
+
 				
 			</div>
 
@@ -97,4 +106,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { logIn })(Login);
+export default connect(mapStateToProps, { logIn, guestLogin })(Login);

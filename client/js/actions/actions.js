@@ -40,6 +40,13 @@ export function logOut (user) {
 	}
 }
 
+export const GUEST_LOGIN = 'GUEST_LOGIN';
+export function guestLogin () {
+	return {
+		type: GUEST_LOGIN
+	}
+}
+
 export function logIn (username, password) {
 	return (dispatch) => {
 		const url = '/api/login';

@@ -5,10 +5,6 @@ import Sound from 'react-sound';
 import Clock from './Clock';
 import { Link } from 'react-router';
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (Notification.permission !== "granted")
-    Notification.requestPermission();
-});
 
 class Timer extends Component {
 	constructor (props) {
@@ -35,6 +31,7 @@ class Timer extends Component {
 
 	    if (Notification.permission !== "granted")
 	      Notification.requestPermission();
+
 	    else {
 	      const notification = new Notification('Breakr', {
 	        icon: 'https://lh4.ggpht.com/mKrnPRmtBinlSg_nDiqiSI7uPL7PpifQTu9FuSRawCzl9Abo17KXdOQfLPDG0gq5HrT3=w300',
@@ -103,10 +100,6 @@ class Timer extends Component {
     }
 
   	return (
-  		
-  			
-  			
-  			
 	  	<div className='timer'> 
 	  		<Link to='/' onClick={this.onClickLogout}>
 	  			<button className='btn button-danger logout-btn'>Logout</button>
@@ -125,6 +118,7 @@ class Timer extends Component {
 							    onLoading={this.handleSongLoading}
 							    onPlaying={this.handleSongPlaying}
 							    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
+							    
 	  	  	<div className='timer-block'>
 		  	  	<div className='breakTimer'>
 					<h2>Break Timer</h2>
