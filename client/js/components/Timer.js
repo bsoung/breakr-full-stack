@@ -21,6 +21,7 @@ class Timer extends Component {
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onBreakFormSubmit = this.onBreakFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
+
 	}
 
 	notifyMe () {
@@ -64,9 +65,11 @@ class Timer extends Component {
 	}
 
 	onClickLogout (e) {
+		e.preventDefault();
 		this.props.logOut(this.props.user)
 		
 	}
+
 
 	render () {
 
@@ -99,8 +102,8 @@ class Timer extends Component {
 	  	<div className='timer'> 
 	  		{this.props.user === null || this.props.user === 'guest' ? 
 
-	  		<Link to='/' onClick={this.onClickLogout}>
-	  			<button className='btn btn-danger logout-btn'>
+	  		<Link to='/' >
+	  			<button onClick={this.onClickLogout} className='btn btn-danger logout-btn'>
 	  			Login
 	  			</button>
 	  		</Link>
@@ -113,10 +116,8 @@ class Timer extends Component {
 
 	  		}
 
-	  		
-
 	  		{this.props.user === null || this.props.user === 'guest' ? '' : 
-		  		<Link to='/profile' onClick={this.onClickLogout}>
+		  		<Link to='/profile' >
 		  			<button className='btn btn-primary logout-btn'>Account</button>
 		  		</Link>
 	  		}
