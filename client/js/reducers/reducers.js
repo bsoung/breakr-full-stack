@@ -9,7 +9,8 @@ import {
 const initialState = {
 	workTimeRemaining: null,
 	breakTimeRemaining: null,
-	user: null
+	user: null,
+	loggedIn: false
 };
 
 export default function (state=initialState, action={}) {
@@ -33,10 +34,6 @@ export default function (state=initialState, action={}) {
 		case LOGOUT_USER:
 			payload.user = null
 			console.log('payload', payload.user)
-			break;
-
-		case GUEST_LOGIN:
-			payload.user = 'guest'
 			break;
 
 		default: 

@@ -66,6 +66,7 @@ class Timer extends Component {
 
 	onClickLogout (e) {
 		e.preventDefault();
+		this.props.router.push('/');
 		this.props.logOut(this.props.user)
 		
 	}

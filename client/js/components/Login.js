@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn, guestLogin } from '../actions/actions';
+import { logIn } from '../actions/actions';
 import { Link } from 'react-router';
 
 
@@ -9,12 +9,12 @@ class Login extends Component {
 		super(props);
 
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-		this.onClickSkip = this.onClickSkip.bind(this);
+
 	}
 
-	// componentDidMount () {
-	// 	this.checkUser(this.props.user);
-	// }
+	componentDidMount () {
+		this.checkUser(this.props.user);
+	}
 
 	componentWillReceiveProps (nextProps) { // react router lifecycle
 		this.checkUser(nextProps.user);
@@ -37,12 +37,9 @@ class Login extends Component {
 			return
 		}  
 
-		this.props.logIn(user, pass);	
-	}
 
-	onClickSkip (e) {
-		e.preventDefault();
-		this.props.guestLogin()
+		this.props.logIn(user, pass);
+
 	}
 
 	render () {
@@ -66,7 +63,7 @@ class Login extends Component {
 					</div>
 					<button type='submit' className='btn btn-primary'>Login</button>
 					<Link to='/signup' className='btn btn-primary'>Register</Link>
-					<button onClick={this.onClickSkip} type='button' className='btn btn-primary'>Guest</button>
+					<Link to='/timer' className='btn btn-primary'>Guest</Link>
 					
 				</form>
 
@@ -104,4 +101,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { logIn, guestLogin })(Login);
+export default connect(mapStateToProps, { logIn })(Login);
