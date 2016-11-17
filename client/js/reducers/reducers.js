@@ -1,4 +1,10 @@
-import { WORK_TIMER_START, BREAK_TIMER_START, SET_USER, LOGOUT_USER } from '../actions/actions';
+import { 
+	WORK_TIMER_START, 
+	BREAK_TIMER_START, 
+	SET_USER, 
+	LOGOUT_USER,
+	GUEST_LOGIN
+} from '../actions/actions';
 
 const initialState = {
 	workTimeRemaining: null,
@@ -27,6 +33,10 @@ export default function (state=initialState, action={}) {
 		case LOGOUT_USER:
 			payload.user = null
 			console.log('payload', payload.user)
+			break;
+
+		case GUEST_LOGIN:
+			payload.user = 'guest'
 			break;
 
 		default: 
