@@ -138,62 +138,63 @@ class Timer extends Component {
 							    onLoading={this.handleSongLoading}
 							    onPlaying={this.handleSongPlaying}
 							    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
-							    
-	  	  	<div className='timer-block'>
-		  	  	<div className='breakTimer'>
-					<h2>Break Timer</h2>
-					<div className='clockdiv'>
-						<div className='clock-box'>
-							<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
-							<div className='smalltext'>Minutes</div> 
-						</div> 
-							
-						<div>	
-							<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
-							<div className='smalltext'>Seconds</div>
+		  	  
+
+			<h1>Breakr</h1>
+			<h2>Interval training for productivity.</h2>
+
+		  	<div className='timerGlass'>
+		  	  	<div className='timer-block'>
+			  	  	<div className='breakTimer'>
+						<h3>Break Timer</h3>
+						<div className='clockdiv'>
+							<div className='clock-box'>
+								<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
+								<div className='smalltext'>Minutes</div> 
+							</div> 
+								
+							<div>	
+								<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
+								<div className='smalltext'>Seconds</div>
+							</div>
+
 						</div>
+
+						<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
+							<div className='countdown-btn'>
+								<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
+								<button className='submit-btn' type='submit'>Begin</button>
+							</div>
+						</form>						
 					</div>
-				</div>
 
-				<div className='workTimer'>
-					<h2>Work Timer</h2>
-					<div className='clockdiv'>
-						<div className='clock-box'>
-							<span className='minutes'>{ workTimeLeft < 0 ? 0 : Math.floor(workTimeLeft/1000/60)}</span>
-							<div className='smalltext'>Minutes</div> 
+					<div className='workTimer'>
+						<h3>Work Timer</h3>
+						<div className='clockdiv'>
+							<div className='clock-box'>
+								<span className='minutes'>{ workTimeLeft < 0 ? 0 : Math.floor(workTimeLeft/1000/60)}</span>
+								<div className='smalltext'>Minutes</div> 
+							</div>
+
+							<div>
+								<span className='seconds'>{ workTimeLeft < 0 ? 0 : Math.floor((workTimeLeft / 1000)%60) }</span> 
+								<div className='smalltext'>Seconds</div>
+							</div>
 						</div>
 
-						<div>
-							<span className='seconds'>{ workTimeLeft < 0 ? 0 : Math.floor((workTimeLeft / 1000)%60) }</span> 
-							<div className='smalltext'>Seconds</div>
-						</div>
-					</div>
+						<form onSubmit={this.onFormSubmit} className='workTimerForm'>
+							<div className='countdown-btn'>
+								<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
+								<button className='submit-btn' type='submit'>Begin</button>
+							</div>
+						</form>
+					</div>					
+		  	  	</div>
+
+		  	  	<div width='300' className='hourglass-img'>
+					<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="300" />
 				</div>
-	  	  	</div>
-	  	 
-
-			<div width='240' className='hourglass-img'>
-				<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" />
-			</div>
-
-			<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
-				<div className='countdown-btn'>
-					<button className='plusMinus' type="button">-</button>
-					<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
-					<button className='plusMinus' type="button">+</button>
-				</div>
-				<div><button className='submit-btn' type='submit'>Begin</button></div>
-			</form>
-
-			<form onSubmit={this.onFormSubmit} className='workTimerForm'>
-				<div className='countdown-btn'>
-					<button className='plusMinus' type="button">-</button>
-					<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
-					<button className='plusMinus' type="button">+</button>
-				</div>
-				<div><button className='submit-btn' type='submit'>Begin</button></div>
-			</form>
-
+	  	 	</div>
 		</div>
 	  
   	 );
