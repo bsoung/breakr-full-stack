@@ -16,8 +16,7 @@ app.use(express.static(process.env.CLIENT_PATH));
 app.use(passport.initialize());
 
 passport.use(new Strategy({ session: false },
-  function(username, password, callback) {
-    console.log("username and ", username, password)
+  function (username, password, callback) {
     User.findOne({
         username: username
         }).select('username password').exec((err, user) => {
@@ -95,7 +94,7 @@ app.post('/api/user', jsonParser, (req, res) => {
 });
 
 
-function runServer(callback) {
+function runServer (callback) {
     console.log("BEGIN")
     mongoose.connect(config.DATABASE_URL, (err) => {
         if (err && callback) {

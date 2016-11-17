@@ -1,23 +1,18 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import actions from '../actions/actions';
+import React, { Component } from 'react';
 
-var Clock = React.createClass({
+class Clock extends Component {
+    render () {
 
-	render: function() {
-
-    var t = this.props.deadline - Date.now();
-    var seconds = Math.floor((t / 1000) % 60);
-    var minutes = Math.floor((t / 1000 / 60) % 60);
-    var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    console.log(t);
-    
+    let t = this.props.deadline - Date.now();
+    let seconds = Math.floor((t / 1000) % 60);
+    let minutes = Math.floor((t / 1000 / 60) % 60);
+    let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+   
     if (t > 0) {
       setTimeout(this.forceUpdate.bind(this), 1000);
     }
 
-  	return (
-
+    return (
       <div>
         <div className="clockdiv">
           <div>
@@ -34,12 +29,9 @@ var Clock = React.createClass({
           </div>
         </div>
       </div>
-  	);
+    );
 
-	}
+  }
+}
 
-});
-
-
-
-module.exports = Clock;
+export default Clock;

@@ -1,77 +1,18 @@
-var fetch = require('isomorphic-fetch');
+const fetch = require('isomorphic-fetch');
 
 /** Action Creators */
 
-var CHECK_OPTIONS = 'CHECK_OPTIONS'
-var checkOptions = function(options) {
-	return {
-		type: CHECK_OPTIONS,
-		checkedOptions: options
-	}
-};
 
-
-var SELECT_IMAGE = 'SELECT_IMAGE'
-var selectImage = function(image) {
-	return {
-		type: SELECT_IMAGE,
-		selectedImage: image
-	}
-
-};
-
-var ADD_ACCOUNT = 'ADD_ACCOUNT'
-var addAccount = function(account) {
-	return {
-		type: ADD_ACCOUNT,
-		account: account
-	}
-};
-
-var SELECT_MUSIC = 'SELECT_MUSIC'
-var selectMusic = function(music) {
-	return {
-		type: SELECT_MUSIC,
-		selectedMusic: music
-	}
-
-};
-
-var FETCH_ACCOUNT = 'FETCH_ACCOUNT'
-var fetchAccount = function(account) {
-	return {
-		type: FETCH_ACCOUNT,
-		account: account
-	}
-};
-
-var FETCH_ACCOUNT_ERROR = 'FETCH_ACCOUNT_ERROR'
-var fetchAccountError = function(error) {
-	return {
-		type: FETCH_ACCOUNT_ERROR,
-		error:  error
-	}
-};
-
-var CHANGE_TIME = 'CHANGE_TIME'
-var changeTime = function(time) {
-	return {
-		type: CHANGE_TIME,
-		selectedTime: time
-	}
-};
-
-var WORK_TIMER_START = 'WORK_TIMER_START'
-var workTimerStart = function(minutes) {
+export const WORK_TIMER_START = 'WORK_TIMER_START'
+export function workTimerStart (minutes) {
 	return {
 		type: WORK_TIMER_START,
 		minutes: minutes
 	}
 };
 
-var BREAK_TIMER_START = 'BREAK_TIMER_START'
-var breakTimerStart = function(minutes) {
-	console.log("minutes?", minutes)
+export const BREAK_TIMER_START = 'BREAK_TIMER_START'
+export function breakTimerStart (minutes) {
 	return {
 		type: BREAK_TIMER_START,
 		minutes: minutes
@@ -80,40 +21,24 @@ var breakTimerStart = function(minutes) {
 
 /** Async Action Creators */
 
-const FETCH_ERROR = 'FETCH_ERROR';
-const fetchTimeError = (error) => {
+export const FETCH_ERROR = 'FETCH_ERROR';
+export function fetchTimeError (error) {
 	return {
 		type: FETCH_ERROR,
 		error: error
 	}
 }
 
-const SEND_TIME = 'SEND_TIME';
-const sendTimeSuccess = (time) => {
-	console.log('action creator time:   ', time);
-	return {
-		type: SEND_TIME,
-		time: time
-	}
-}
 
-const FETCH_TIME = 'FETCH_TIME';
-const fetchTimeSuccess = (time) => {
-	return {
-		type: FETCH_TIME,
-		time: time
-	}
-}
-
-const SET_USER = 'SET_USER';
-const setUser = (user) => {
+export const SET_USER = 'SET_USER';
+export function setUser (user) {
 	return {
 		type: SET_USER,
 		user: user
 	}
 }
 
-const logIn = (username, password) => {
+export function logIn (username, password) {
 	return (dispatch) => {
 		const url = '/api/login';
 		const req = {username, password};
@@ -177,7 +102,7 @@ setError('this is my message');
  */
 
 
-const createUser = (username, password) => {
+export function createUser (username, password) {
 	return (dispatch) => {
 		const url = '/timer';
 		return fetch(url, {method: 'post', 
@@ -206,38 +131,18 @@ const createUser = (username, password) => {
 
 /** Async Action exports */
 
-exports.SET_USER = SET_USER
-exports.logIn = logIn;
+// exports.SET_USER = SET_USER
+// exports.logIn = logIn;
 
 
 
+// /** Action exports */
+
+// exports.WORK_TIMER_START = WORK_TIMER_START;
+// exports.workTimerStart = workTimerStart;
+
+// exports.BREAK_TIMER_START = BREAK_TIMER_START;
+// exports.breakTimerStart = breakTimerStart;
 
 
-/** Action exports */
 
-exports.WORK_TIMER_START = WORK_TIMER_START;
-exports.workTimerStart = workTimerStart;
-
-exports.BREAK_TIMER_START = BREAK_TIMER_START;
-exports.breakTimerStart = breakTimerStart;
-
-exports.FETCH_ACCOUNT_ERROR = FETCH_ACCOUNT_ERROR;
-exports.fetchAccountError = fetchAccountError;
-
-exports.CHECK_OPTIONS = CHECK_OPTIONS;
-exports.checkOptions = checkOptions;
-
-exports.SELECT_IMAGE = SELECT_IMAGE;
-exports.selectImage = selectImage;
-
-exports.ADD_ACCOUNT = ADD_ACCOUNT;
-exports.addAccount = addAccount;
-
-exports.SELECT_MUSIC = SELECT_MUSIC;
-exports.selectMusic = selectMusic;
-
-exports.FETCH_ACCOUNT = FETCH_ACCOUNT;
-exports.fetchAccount = fetchAccount;
-
-exports.CHANGE_TIME = CHANGE_TIME;
-exports.changeTime = changeTime;

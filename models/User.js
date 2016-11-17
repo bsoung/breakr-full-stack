@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-// import mongooseHidden from 'mongoose-hidden';
 const mongooseHidden = require('mongoose-hidden')();
 
 const UserSchema = new mongoose.Schema({
