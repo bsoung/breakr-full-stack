@@ -69,7 +69,7 @@ export function logIn (username, password) {
 		.then((data) => {
 			console.log(data)
 			return dispatch(
-				setUser(data.user.username)
+				setUser(data.user)
 			)
 		})
 		

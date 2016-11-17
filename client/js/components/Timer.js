@@ -15,13 +15,11 @@ class Timer extends Component {
 			breakInput: ''
 		}
 
-
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onBreakInputChange = this.onBreakInputChange.bind(this);
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onBreakFormSubmit = this.onBreakFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
-
 	}
 
 	notifyMe () {
@@ -98,7 +96,7 @@ class Timer extends Component {
     if (workTime2 <= 500) {
      	this.notifyMe();
     }
-
+    
   	return (
 	  	<div className='timer'> 
 	  		{this.props.user === null || this.props.user === 'guest' ? 
