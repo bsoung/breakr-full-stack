@@ -1,8 +1,5 @@
 const fetch = require('isomorphic-fetch');
 
-/** Action Creators */
-
-
 export const WORK_TIMER_START = 'WORK_TIMER_START'
 export function workTimerStart (minutes) {
 	return {
@@ -19,16 +16,13 @@ export function breakTimerStart (minutes) {
 	}
 };
 
-/** Async Action Creators */
-
 export const FETCH_ERROR = 'FETCH_ERROR';
-export function fetchTimeError (error) {
+export function fetchError (error) {
 	return {
 		type: FETCH_ERROR,
 		error: error
 	}
 }
-
 
 export const SET_USER = 'SET_USER';
 export function setUser (user) {
@@ -69,13 +63,13 @@ export function logIn (username, password) {
 		
 		.catch((error) => {
 			return dispatch(
-				fetchTimeError(error) // TODO: SET_NOTIFICATION type, 
+				fetchError(error) // TODO: SET_NOTIFICATION type, 
 			);
 		});
 	}
 }
 
-/*
+/* IMPORTANT:
 
 export function setNotification(msg, type) {
   return {
@@ -101,13 +95,19 @@ setError('this is my message');
 
  */
 
-
 export function createUser (username, password) {
 	return (dispatch) => {
-		const url = '/timer';
-		return fetch(url, {method: 'post', 
-			body: '{"time": '+ time + '}', 
-			headers: {'content-type': 'application/json', 'Accept':'application/json'}  })
+		const url = '/api/user';
+		const req = {username, password};
+
+		return fetch(
+			url, 
+			{
+				method: 'post', 
+				body: JSON.stringify(req), 
+				headers: {'content-type': 'application/json', 'Accept':'application/json'} 
+			}
+		)
 
 		.then((res) => {
 			if (res.status < 200 || res.status >= 300) {
@@ -115,34 +115,21 @@ export function createUser (username, password) {
 				error.res = res;
 				throw error;
 			}
-			const selectedTime = res.json().time;
-			return dispatch(
-				sendTimeSuccess(selectedTime)
-			); 
+
+			dispatch(
+				setUser(res.json().user)
+			)
 		})
 
 		.catch((error) => {
 			return dispatch(
-				fetchTimeError(error)
+				fetchError(error)
 			);
 		});
 	}
 }
 
-/** Async Action exports */
 
-// exports.SET_USER = SET_USER
-// exports.logIn = logIn;
-
-
-
-// /** Action exports */
-
-// exports.WORK_TIMER_START = WORK_TIMER_START;
-// exports.workTimerStart = workTimerStart;
-
-// exports.BREAK_TIMER_START = BREAK_TIMER_START;
-// exports.breakTimerStart = breakTimerStart;
 
 
 
