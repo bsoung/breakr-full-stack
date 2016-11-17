@@ -1,6 +1,6 @@
-var actions = require('../actions/actions');
+import { WORK_TIMER_START, BREAK_TIMER_START, SET_USER } from '../actions/actions';
 
-var initialState = {
+const initialState = {
 	selectedImage: null,
 	checkedOptions: [],
 	account: null,
@@ -12,45 +12,22 @@ var initialState = {
 	user: null
 };
 
-var reducer = function(state=initialState, action={}) {
+export default function (state=initialState, action={}) {
 	// var copyState = state || initialState;
 	// state = Object.assign({}, copyState);
 	const payload = {};
-	console.log("action:    ", action);
+
 	switch (action.type) {
-		case actions.SEND_TIME: 
-			payload.selectedTime = action.time;
-			break;
 
-		case actions.SELECT_IMAGE:
-			payload.selectImage = actions.selectImage;
-			break;
-
-		case actions.CHECK_OPTIONS:
-			payload.checkedOptions = actions.checkedOptions
-			break;
-
-		case actions.SELECT_MUSIC:
-			payload.selectedMusic = actions.selectedMusic
-			break;
-
-		case actions.CHANGE_TIME:
-			payload.selectedTime = actions.selectedTime
-			break;
-
-		case actions.WORK_TIMER_START:
+		case WORK_TIMER_START:
 			payload.workTimeRemaining = (Date.now() + (action.minutes * 1000))
 			break;
 
-		case actions.BREAK_TIMER_START:
+		case BREAK_TIMER_START:
 			payload.breakTimeRemaining = (Date.now() + (action.minutes * 1000))
 			break;
 
-		case actions.FETCH_TIME:
-			payload.selectedTime = actions.time
-			break;
-
-		case actions.SET_USER:
+		case SET_USER:
 			payload.user = action.user
 			break;
 
@@ -61,5 +38,3 @@ var reducer = function(state=initialState, action={}) {
 }
 
 
-
-module.exports = reducer;

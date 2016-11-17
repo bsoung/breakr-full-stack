@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../actions/actions'
+import { logIn } from '../actions/actions'
 
 class Login extends Component {
 	constructor (props) {
@@ -28,16 +28,16 @@ class Login extends Component {
 		const user = e.target.username.value;
 		const pass = e.target.password.value;
 
-		this.props.dispatch(
-			actions.logIn(user, pass)
-		);
+		this.props.logIn(user, pass)
+		
 	}
 
 	render () {
 		return (
-			<div>
+			<div className='login'>
+				<h2>Welcome to Breakr</h2>
 				<form onSubmit={this.handleFormSubmit}>
-					<h3>Please log in</h3>
+					
 					<div className='form-group'>
 						<label>Username</label>
 						<input name='username' type='text' className='form-control' />  
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { logIn })(Login);
