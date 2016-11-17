@@ -105,10 +105,28 @@ const fetchTimeSuccess = (time) => {
 	}
 }
 
-const fetchTime = (time) => {
+const SET_USER = 'SET_USER';
+const setUser = (user) => {
+	return {
+		type: SET_USER,
+		user: user
+	}
+}
+
+const logIn = (username, password) => {
 	return (dispatch) => {
-		const url = '/timer';
-		return fetch(url) //GET
+		const url = '/api/login';
+		const req = {username, password};
+
+		return fetch(
+			url, 
+			{
+				method: 'post', 
+				body: JSON.stringify(req), 
+				headers: {'content-type': 'application/json', 'Accept':'application/json'} 
+			}
+		)
+
 		.then((res) => {
 			if (res.status < 200 || res.status >= 300) {
 				const error = new Error(res.statusText);
@@ -116,24 +134,50 @@ const fetchTime = (time) => {
 				throw error;
 			}
 
-			return res.json();
+			dispatch(
+				setUser(res.json().user)
+			);
+
+			return; 
+		
 		})
-		.then((data) => {
-			const selectedTime = data.time;
-			return dispatch(
-				fetchTimeSuccess(selectedTime)
-			); 
-		})
+		
 		.catch((error) => {
 			return dispatch(
-				fetchTimeError(error)
+				fetchTimeError(error) // TODO: SET_NOTIFICATION type, 
 			);
 		});
 	}
 }
 
+/*
 
-const sendTime = (time) => {
+export function setNotification(msg, type) {
+  return {
+    type: SET_NOTIFICATION,
+    notification: {
+      type,
+      msg
+    }
+  }
+}
+
+export function setError(msg) {
+  return setNotification(msg, 'error');
+}
+
+
+
+
+setNotification('this is my message', 'error');
+
+setError('this is my message');
+
+
+ */
+
+
+const createUser = (username, password) => {
 	return (dispatch) => {
 		const url = '/timer';
 		return fetch(url, {method: 'post', 
@@ -146,16 +190,12 @@ const sendTime = (time) => {
 				error.res = res;
 				throw error;
 			}
-
-			return res.json();
-		})
-		.then((data) => {
-			const selectedTime = data.time;
-			console.log('selectedTime is:    ', selectedTime);
+			const selectedTime = res.json().time;
 			return dispatch(
 				sendTimeSuccess(selectedTime)
 			); 
 		})
+
 		.catch((error) => {
 			return dispatch(
 				fetchTimeError(error)
@@ -166,14 +206,11 @@ const sendTime = (time) => {
 
 /** Async Action exports */
 
-exports.sendTime = sendTime;
-exports.fetchTime = fetchTime;
+exports.SET_USER = SET_USER
+exports.logIn = logIn;
 
-exports.SEND_TIME = SEND_TIME;
-exports.sendTimeSuccess = sendTimeSuccess;
 
-exports.FETCH_TIME = FETCH_TIME;
-exports.fetchTimeSuccess = fetchTimeSuccess;
+
 
 
 /** Action exports */

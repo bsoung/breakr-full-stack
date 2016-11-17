@@ -3,47 +3,96 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import config from './config';
-//
+import User from '../models/User';
+
+import passport from 'passport';
+import bcrypt from 'bcryptjs';
+import { Strategy } from 'passport-local';
 
 const app = express();
 const jsonParser = bodyParser.json();
 
 app.use(express.static(process.env.CLIENT_PATH));
+app.use(passport.initialize());
+
+passport.use(new Strategy({ session: false },
+  function(username, password, callback) {
+    console.log("username and ", username, password)
+    User.findOne({
+        username: username
+        }).select('username password').exec((err, user) => {
+            if (err) {
+                return callback(err);
+            }
+
+            if (!user) {
+                return callback(null, false, {
+                    message: 'Incorrect Username'
+                });
+            }
+
+            user.validatePassword(password, (err, isValid) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                if (!isValid) {
+                    return callback(null, false, {
+                        message: 'Incorrect Password'
+                    });
+                }
+
+                return callback(null, user);
+            });
+        }); 
+}));
+
 
 // our model for storing timer
-const Time = mongoose.model('Time', { time: Number });
-const BreakTime = mongoose.model('BreakTime', { breakTime: Number });
 
-app.get('/timer', (req, res) => {
-    Time.findOne((err, item) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({message: 'Internal Service Error'});
-        }
 
-        res.status(200).json({time: item.time});
-    })
+// app.get('/user', (req, res) => {
+//     res.status(200).json({message: 'Ok'})
     
-})
+// })
 
 // optional account creation
-app.post('/timer', jsonParser, (req, res) => {
-    Time.findOne((err, item) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({message: 'Internal Service Error'});
-        }
-        console.log('what req body time', req.body)
-        item.time = req.body.time;
-        item.save((err) => {
+app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
+    res.status(200).json({user: req.user});
+});
+
+app.post('/api/user', jsonParser, (req, res) => {
+    console.log(req.body);
+    User.findOne({ username: req.body.username }).select('username').exec((err, user) => {
+        if (user) {
+            return res.status(400).json({message: 'User does exist'});
+        } 
+
+        user = new User({username: req.body.username});
+
+        user.hashPassword(req.body.password, (err, hashPassword) => {
             if (err) {
-                console.error(err);
-            } else {
-                res.status(201).json({ time: item.time })
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
             }
-        })
-    })
-})
+
+            user.password = hashPassword;
+
+            user.save((err) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Internal Server Error'
+                    });
+                }
+
+                return res.status(201).json({user})
+
+            });
+        });
+    });
+
+});
 
 
 function runServer(callback) {
@@ -52,14 +101,6 @@ function runServer(callback) {
         if (err && callback) {
             return callback(err);
         }
-
-        Time.findOne((err, item) => {
-            if (item == null) {    
-                console.log("Did we create item????", item)
-                item = { time: null }
-                Time.create(item);
-            }
-        })
 
         app.listen(config.PORT, process.env.IP, () => {
             console.log(`Listening on localhost: ${config.PORT}`);
