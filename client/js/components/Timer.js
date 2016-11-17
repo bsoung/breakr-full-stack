@@ -5,10 +5,6 @@ import Sound from 'react-sound';
 import Clock from './Clock';
 import { Link } from 'react-router';
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (Notification.permission !== "granted")
-    Notification.requestPermission();
-});
 
 class Timer extends Component {
 	constructor (props) {
@@ -25,6 +21,7 @@ class Timer extends Component {
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onBreakFormSubmit = this.onBreakFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
+
 	}
 
 	notifyMe () {
@@ -35,6 +32,7 @@ class Timer extends Component {
 
 	    if (Notification.permission !== "granted")
 	      Notification.requestPermission();
+
 	    else {
 	      const notification = new Notification('Breakr', {
 	        icon: 'https://lh4.ggpht.com/mKrnPRmtBinlSg_nDiqiSI7uPL7PpifQTu9FuSRawCzl9Abo17KXdOQfLPDG0gq5HrT3=w300',
@@ -67,17 +65,16 @@ class Timer extends Component {
 	}
 
 	onClickLogout (e) {
-		// e.preventDefault()
-		console.log(this.props.user)
+		e.preventDefault();
+		this.props.router.push('/');
 		this.props.logOut(this.props.user)
-		console.log(this.props.user)
-			// this.props.router.replace('/');
 		
 	}
 
+
 	render () {
 
-	console.log(this.props)
+	console.log('the user is ', this.props.user)
 		
   	let timeLeft = this.props.breakTimeRemaining - Date.now();
     let time2 = Math.abs(timeLeft);
@@ -103,14 +100,30 @@ class Timer extends Component {
     }
 
   	return (
-  		
-  			
-  			
-  			
 	  	<div className='timer'> 
-	  		<Link to='/' onClick={this.onClickLogout}>
-	  			<button className='btn button-danger logout-btn'>Logout</button>
+	  		{this.props.user === null || this.props.user === 'guest' ? 
+
+	  		<Link to='/' >
+	  			<button onClick={this.onClickLogout} className='btn btn-danger logout-btn'>
+	  			Login
+	  			</button>
 	  		</Link>
+
+	  		:
+
+	  		<Link to='/' onClick={this.onClickLogout}>
+	  			<button className='btn btn-danger logout-btn'>Logout</button>
+	  		</Link>
+
+	  		}
+
+	  		{this.props.user === null || this.props.user === 'guest' ? '' : 
+		  		<Link to='/profile' >
+		  			<button className='btn btn-primary logout-btn'>Account</button>
+		  		</Link>
+	  		}
+
+
 
 	  	  	{ time2 <= 500 ? <Sound url="../assets/alarm_sound.mp3"
 							    playStatus={Sound.status.PLAYING}
@@ -144,6 +157,7 @@ class Timer extends Component {
 								<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
 								<div className='smalltext'>Seconds</div>
 							</div>
+
 						</div>
 
 						<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logIn } from '../actions/actions';
 import { Link } from 'react-router';
-import { reduxForm } from 'redux-form';
+
 
 class Login extends Component {
 	constructor (props) {
 		super(props);
 
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+
 	}
 
 	componentDidMount () {
@@ -17,13 +18,12 @@ class Login extends Component {
 
 	componentWillReceiveProps (nextProps) { // react router lifecycle
 		this.checkUser(nextProps.user);
-		console.log("LOGGED IN AS", this.props.user)
 	}
 
 	checkUser (user) {
 		if (user !== null) {
 			this.props.router.replace('/timer');
-		}
+		} 
 	}
 
 	handleFormSubmit (e) {
@@ -37,13 +37,14 @@ class Login extends Component {
 			return
 		}  
 
+
 		this.props.logIn(user, pass);
-		
+
 	}
 
 	render () {
 		// const { fields: { username, password} } = this.props;
-
+		
 		return (
 			<div className='login'>
 				<div className='header'>
@@ -64,7 +65,10 @@ class Login extends Component {
 					</div>
 					<button type='submit' className='btn btn-primary'>Login</button>
 					<Link to='/signup' className='btn btn-primary'>Register</Link>
+					<Link to='/timer' className='btn btn-primary'>Guest</Link>
+					
 				</form>
+
 				
 			</div>
 
@@ -72,25 +76,25 @@ class Login extends Component {
 	}
 }
 
-const validate = (values) => {
-	const errors = {};
+// const validate = (values) => {
+// 	const errors = {};
 
-	if (!values.username) {
-		errors.username = 'Enter a username';
-	}
+// 	if (!values.username) {
+// 		errors.username = 'Enter a username';
+// 	}
 
-	if (!values.password) {
-		errors.password = 'Enter a password';
-	}
+// 	if (!values.password) {
+// 		errors.password = 'Enter a password';
+// 	}
 
-	return errors;
-}
+// 	return errors;
+// }
 
-const validateObject = {
-	form: 'Login',
-	fields: ['username', 'password'],
-	validate
-}
+// const validateObject = {
+// 	form: 'Login',
+// 	fields: ['username', 'password'],
+// 	validate
+// }
 
 const mapStateToProps = (state) => {
 	return {

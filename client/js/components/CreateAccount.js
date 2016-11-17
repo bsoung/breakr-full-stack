@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions/actions';
 import { Link } from 'react-router';
@@ -10,19 +10,19 @@ class CreateAccount extends Component {
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
-	// componentDidMount () {
-	// 	this.checkUser(this.props.user);
-	// }
+	componentDidMount () {
+		this.checkUser(this.props.user);
+	}
 
-	// componentWillReceiveProps (nextProps) { // react router lifecycle
-	// 	this.checkUser(nextProps.user);
-	// }
+	componentWillReceiveProps (nextProps) { // react router lifecycle
+		this.checkUser(nextProps.user);
+	}
 
-	// checkUser (user) {
-	// 	if (user !== null) {
-	// 		this.props.router.replace('/timer');
-	// 	}
-	// }
+	checkUser (user) {
+		if (user !== null) {
+			this.props.router.replace('/timer');
+		}
+	}
 
 	handleFormSubmit (e) {
 		e.preventDefault();
@@ -41,11 +41,8 @@ class CreateAccount extends Component {
 			return;
 		}  
 
-		this.props.createUser(user, pass).then(() => {
-			alert('Account Created!');
-			this.props.router.replace('/'); // TODO 
-		});
-		
+		this.props.router.push('/timer');
+
 	}
 
 	render () {
