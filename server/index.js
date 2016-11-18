@@ -13,7 +13,7 @@ import { Strategy } from 'passport-local';
 const app = express();
 const jsonParser = bodyParser.json();
 
-app.use(express.static(process.env.CLIENT_PATH));
+app.use(express.static(process.env.CLIENT_PATH || "../build"));
 
 app.use(passport.initialize());
 
