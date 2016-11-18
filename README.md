@@ -1,32 +1,32 @@
-# Thinkful Full Stack Template
+# Breakr
 
-A template for developing and deploying full stack JavaScript apps.  Supports ES2015 on the client and server-side.
+Interval training to increase mindful productivity while working, stressing the importance of taking regular breaks. With Breakr you a timer for each and yield extraordinary results! 
 
-## Getting started
+## Motivation
 
-### Setting up a project
+*Studies show that taking a break once an hour increases our work productivity. After a while, our brain becomes numb to constant stimulation and it becomes harder to focus. A break can serve as creative fuel so that we are able to come back to the task at hand renewed and reenergized. Breakr can assure that happens.
+*Breakr allows users to set an interval for their work time, after which a popup notification and sound will alert the user that it is time to take a break. Set a new timer for your break period and be alerted when it is time to get back to work.
+*Users have the option to create an account and login. In doing so, they will gain access to their statistics to track their work and break times over the course of TIME INTERVALLLLLLLL
 
-* Move into your projects directory: `cd ~/YOUR_PROJECTS_DIRECTORY`
-* Clone this repository: `git clone https://github.com/oampo/thinkful-full-stack-template YOUR_PROJECT_NAME`
-* Move into the project directory: `cd YOUR_PROJECT_NAME`
-* Install the dependencies: `npm install`
-* Create a new repo on GitHub: https://github.com/new
-    * Make sure the "Initialize this repository with a README" option is left **un**checked
-* Update the remote to point to your GitHub repository: `git remote set-url origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME`
+### API Reference
 
-### Working on the project
+Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
 
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Run the development task: `npm run dev`
-    * Starts a server running at http://localhost:8080
-    * Automatically rebuilds when any of your files change
+#### Tests
+
+Describe and show how to run the tests with code examples.
+
+##### Contributers
+*bsoung
+*dennellmarie
+*emontecalvo
 
 ## Directory layout
 
 ```
 .
 ├── client      Client-side code
-│   ├── assets  Images, videos, etc.
+│   ├── assets  Timer Sound
 │   ├── js      JavaScript
 │   └── scss    SASS stylesheets
 ├── server      Server-side code
@@ -35,40 +35,4 @@ A template for developing and deploying full stack JavaScript apps.  Supports ES
     └── server  Server tests
 ```
 
-## Deployment
-
-Requires the [Heroku CLI client](https://devcenter.heroku.com/articles/heroku-command-line).
-
-### Setting up the project on Heroku
-
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Create the Heroku app: `heroku create PROJECT_NAME`
-* Instruct Heroku to install the development dependencies: `heroku config:set NPM_CONFIG_PRODUCTION=false`
-
-### Deploying to Heroku
-
-* Push your code to Heroku: `git push heroku master`
-
-## Continuous Integration
-
-* Add your repository to [Travis CI](https://travis-ci.org/)
-
-## Continuous Deployment
-
-Requires the [Travis CLI client](https://github.com/travis-ci/travis.rb).
-
-### Setting up CD
-
-* Add the following configuration to `.travis.yml`:
-
-    ```
-    deploy:
-      provider: heroku
-      app: YOUR_HEROKU_APP_NAME
-    ```
-* Add your Heroku API key: `travis encrypt $(heroku auth:token) --add deploy.api_key`
-
-### Deploying using CD
-
-* Push your code to GitHub: `git push origin master`
 

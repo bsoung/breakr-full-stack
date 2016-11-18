@@ -1,0 +1,296 @@
+From f0bebb91c899eb2a3de031f60bd09ab3c6330579 Mon Sep 17 00:00:00 2001
+From: dennellmarie <dennell.lucero@gmail.com>
+Date: Thu, 17 Nov 2016 12:14:32 -0800
+Subject: [PATCH] timer almost fully styled, login page styling started
+
+---
+ client/index.html             |  1 -
+ client/js/Route.js            |  2 +-
+ client/js/components/Login.js |  4 +-
+ client/js/components/Timer.js | 99 ++++++++++++++++++++++---------------------
+ client/scss/index.scss        | 76 ++++++++++++++++++++++++---------
+ 5 files changed, 111 insertions(+), 71 deletions(-)
+
+diff --git a/client/index.html b/client/index.html
+index 02421fd..1da8c91 100644
+--- a/client/index.html
++++ b/client/index.html
+@@ -5,7 +5,6 @@
+ 
+ <title>{{name}}</title>
+ 
+-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/{{name}}.{{version}}{{#production}}.min{{/production}}.css">
+ 
+ <!-- Your HTML goes here -->
+diff --git a/client/js/Route.js b/client/js/Route.js
+index f78bfc0..707f41d 100644
+--- a/client/js/Route.js
++++ b/client/js/Route.js
+@@ -10,7 +10,7 @@ import CreateAccount from './components/CreateAccount';
+ 
+ export default (
+ 	<Route path='/' component={App}>
+-		<IndexRoute component={Login} />
++		<IndexRoute component={Timer} />
+ 		<Route path='timer' component={Timer} />
+ 		<Route path='signup' component={CreateAccount} />
+ 	</Route>
+diff --git a/client/js/components/Login.js b/client/js/components/Login.js
+index 1ebb2ce..0bb9d02 100644
+--- a/client/js/components/Login.js
++++ b/client/js/components/Login.js
+@@ -46,7 +46,9 @@ class Login extends Component {
+ 
+ 		return (
+ 			<div className='login'>
+-				<h2>Welcome to Breakr</h2>
++				<div className='header'>
++				<h2 className='welcome'>Welcome to </h2><h1 className='breakrLogin'>Breakr</h1>
++				</div>
+ 				<form onSubmit={this.handleFormSubmit}>
+ 					
+ 					<div className='form-group'>
+diff --git a/client/js/components/Timer.js b/client/js/components/Timer.js
+index 2d631fe..d2168c3 100644
+--- a/client/js/components/Timer.js
++++ b/client/js/components/Timer.js
+@@ -125,61 +125,62 @@ class Timer extends Component {
+ 							    onLoading={this.handleSongLoading}
+ 							    onPlaying={this.handleSongPlaying}
+ 							    onFinishedPlaying={this.handleSongFinishedPlaying} /> : '' }
+-	  	  	<div className='timer-block'>
+-		  	  	<div className='breakTimer'>
+-					<h2>Break Timer</h2>
+-					<div className='clockdiv'>
+-						<div className='clock-box'>
+-							<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
+-							<div className='smalltext'>Minutes</div> 
+-						</div> 
+-							
+-						<div>	
+-							<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
+-							<div className='smalltext'>Seconds</div>
++		  	  
++
++			<h1>Breakr</h1>
++			<h2>Interval training for productivity.</h2>
++
++		  	<div className='timerGlass'>
++		  	  	<div className='timer-block'>
++			  	  	<div className='breakTimer'>
++						<h3>Break Timer</h3>
++						<div className='clockdiv'>
++							<div className='clock-box'>
++								<span className='minutes'>{ timeLeft < 0 ? 0 : Math.floor(timeLeft/1000/60)}</span>
++								<div className='smalltext'>Minutes</div> 
++							</div> 
++								
++							<div>	
++								<span className='seconds'>{ timeLeft < 0 ? 0 : Math.floor((timeLeft / 1000)%60) }</span> 
++								<div className='smalltext'>Seconds</div>
++							</div>
+ 						</div>
++
++						<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
++							<div className='countdown-btn'>
++								<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
++								<button className='submit-btn' type='submit'>Begin</button>
++							</div>
++						</form>						
+ 					</div>
+-				</div>
+ 
+-				<div className='workTimer'>
+-					<h2>Work Timer</h2>
+-					<div className='clockdiv'>
+-						<div className='clock-box'>
+-							<span className='minutes'>{ workTimeLeft < 0 ? 0 : Math.floor(workTimeLeft/1000/60)}</span>
+-							<div className='smalltext'>Minutes</div> 
++					<div className='workTimer'>
++						<h3>Work Timer</h3>
++						<div className='clockdiv'>
++							<div className='clock-box'>
++								<span className='minutes'>{ workTimeLeft < 0 ? 0 : Math.floor(workTimeLeft/1000/60)}</span>
++								<div className='smalltext'>Minutes</div> 
++							</div>
++
++							<div>
++								<span className='seconds'>{ workTimeLeft < 0 ? 0 : Math.floor((workTimeLeft / 1000)%60) }</span> 
++								<div className='smalltext'>Seconds</div>
++							</div>
+ 						</div>
+ 
+-						<div>
+-							<span className='seconds'>{ workTimeLeft < 0 ? 0 : Math.floor((workTimeLeft / 1000)%60) }</span> 
+-							<div className='smalltext'>Seconds</div>
+-						</div>
+-					</div>
++						<form onSubmit={this.onFormSubmit} className='workTimerForm'>
++							<div className='countdown-btn'>
++								<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
++								<button className='submit-btn' type='submit'>Begin</button>
++							</div>
++						</form>
++					</div>					
++		  	  	</div>
++
++		  	  	<div width='300' className='hourglass-img'>
++					<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="300" />
+ 				</div>
+-	  	  	</div>
+-	  	 
+-
+-			<div width='240' className='hourglass-img'>
+-				<img className='glass' src="http://i.giphy.com/gHmCa7Qq1bqj6" width="244" />
+-			</div>
+-
+-			<form onSubmit={this.onBreakFormSubmit} className='breakTimerForm'>
+-				<div className='countdown-btn'>
+-					<button className='plusMinus' type="button">-</button>
+-					<input value={this.state.breakInput} onChange={this.onBreakInputChange} type='number' placeholder='Set break length' />
+-					<button className='plusMinus' type="button">+</button>
+-				</div>
+-				<div><button className='submit-btn' type='submit'>Begin</button></div>
+-			</form>
+-
+-			<form onSubmit={this.onFormSubmit} className='workTimerForm'>
+-				<div className='countdown-btn'>
+-					<button className='plusMinus' type="button">-</button>
+-					<input value={this.state.input} onChange={this.onInputChange} type='number' placeholder='Set work length' />
+-					<button className='plusMinus' type="button">+</button>
+-				</div>
+-				<div><button className='submit-btn' type='submit'>Begin</button></div>
+-			</form>
+-
++	  	 	</div>
+ 		</div>
+ 	  
+   	 );
+diff --git a/client/scss/index.scss b/client/scss/index.scss
+index 1f321b7..435e1a9 100644
+--- a/client/scss/index.scss
++++ b/client/scss/index.scss
+@@ -1,7 +1,3 @@
+-.container {
+- 	display: flex;
+-}
+-
+ .logout-btn {
+   float: right;
+ }
+@@ -11,7 +7,7 @@
+ }
+ 
+ .timer-block {
+-  display: inline-block;
++  float: left;
+ }
+ 
+ .clock-box {
+@@ -60,14 +56,6 @@
+ 	padding-left: 20px;
+ }
+ 
+-.submit-btn {
+-	margin-top: 10px;
+-  background-color: #00816A;
+-  color: #fff;
+-  border-radius: 5px;
+-  font-family: sans-serif;
+-}
+-
+ .plusMinus {
+   background-color: #00816A;
+   color: #fff;
+@@ -80,13 +68,34 @@
+ }
+ 
+ body{
+-    text-align: center;
+-    background: #00ECB9;
++  text-align: center;
++  background: #00ECB9;
+   font-family: sans-serif;
+   font-weight: 100;
+ }
+ 
+-h2{
++h1 {
++  color: #fff;
++  font-size: 80px;
++  margin-bottom: -25px;
++}
++
++.breakrLogin {
++  margin-top: -40px;
++  margin-bottom: 50px;
++}
++
++h2 {
++  color: #396;
++  font-size: 40px;
++  font-weight: 100;
++}
++
++.welcome {
++  letter-spacing: 4px;
++}
++
++h3{
+   color: #396;
+   font-weight: 100;
+   font-size: 40px;
+@@ -123,17 +132,46 @@ h2{
+ }
+ 
+ .breakTimer, .workTimer {
+-  display: inline-block;
++  display: block;
+ }
+ 
+ .hourglass-img {
+   margin: auto;
+-  width: 238px;
++  width: 300px;
+   border: 8px solid #00816A;
+   border-radius: 10px;
++  float: right;
++  margin-top: 50px;
+ }
+ 
+ .glass {
+-  margin-left: -17px;
++  margin-left: -18px;
+   margin-top: 2px;
+ }
++
++input {
++  border-radius: 5px;
++  border: none;
++  padding: 10px;
++  font-size: 14px;
++  margin: 5px;
++}
++
++button {
++  margin-top: 10px;
++  background-color: #00816A;
++  color: #fff;
++  border-radius: 5px;
++  font-family: sans-serif;
++  font-size: 14px;
++  padding: 10px;
++  border: none;
++}
++
++.form-control {
++  border-radius: 5px;
++  border: none;
++  padding: 10px;
++  font-size: 14px;
++  margin: 5px;
++}
+-- 
+2.7.4 (Apple Git-66)
+
