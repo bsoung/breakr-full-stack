@@ -75,7 +75,7 @@ class Timer extends Component {
 	let timeLeft = 0;
 
 	let progress = 0;
-	let color = 'green'
+	let color = '#432bec'
 
 	if (timer.total !== null) {
 	  timeLeft = Math.floor(((timer.timeStarted + (timer.total * 1000)) - Date.now()) / 1000);
@@ -89,13 +89,28 @@ class Timer extends Component {
 	  }
 	   progress = Math.floor(timeLeft / timer.total * 100);
 	  	console.log("PROGRESS", progress, timeLeft, timer.total);
-		  if (progress < 25) {
-		  	color = 'red';
+		  if (progress < 5) {
+		  	color = '#dbd6fb';
+		  } else if (progress < 10) {
+		  	color = '#cdc7fa';
+		  } else if (progress < 20) {
+		  	color = '#b2a8f7'
+		  } else if (progress < 30) {
+		  	color = '#a498f6'
+		  } else if (progress < 40) {
+		  	color = '#9688f5'
 		  } else if (progress < 50) {
-		  	color = 'orange';
-		  } else if (progress < 75) {
-		  	color = 'blue'
+		  	color = '#8879f3'
+		  } else if (progress < 60) {
+		  	color = '#7b69f2'
+		  } else if (progress < 70) {
+		  	color = '#6d5af0'
+		  } else if (progress < 80) {
+		  	color = '#513aee'
+		  } else if (progress < 90) {
+		  	color = '#432bec'
 		  }
+
 	}
 
   	return (
