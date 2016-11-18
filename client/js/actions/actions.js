@@ -33,6 +33,22 @@ export function setUser (user) {
 	}
 }
 
+export const ADD_WORK_STATS = 'ADD_WORK_STATS';
+export function addWorkStats (stat) {
+	return {
+		type: ADD_WORK_STATS,
+		stat: stat
+	}
+}
+
+export const ADD_BREAK_STATS = 'ADD_BREAK_STATS';
+export function addBreakStats (stat) {
+	return {
+		type: ADD_BREAK_STATS,
+		stat: stat
+	}
+}
+
 export function logOut () {
 	localStorage.username = null;
 	return setUser(null);

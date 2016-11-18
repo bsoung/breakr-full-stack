@@ -3,7 +3,9 @@ import _ from 'lodash';
 import { 
 	TIMER_START,
 	SET_USER,
-	TIMER_COMPLETE
+	TIMER_COMPLETE,
+	ADD_WORK_STATS,
+	ADD_BREAK_STATS
 
 } from '../actions/actions';
 
@@ -14,12 +16,14 @@ const initialState = {
 		timerType: null,
 		complete: false
 	},
+	currentWorkTime: [0],
+	currentBreakTime: [0],
 	user: null
 };
 
 export default function (state=initialState, action={}) {
+	const stateClone = _.cloneDeep(state);
 	switch (action.type) {
-
 		case TIMER_START:
 		  return _.merge({}, state, {
 		    timer: {
@@ -41,6 +45,20 @@ export default function (state=initialState, action={}) {
 		  		complete: true
 		  	}
 		  })
+
+		case ADD_WORK_STATS:
+			stateClone.currentWorkTime.push(action.stat);
+			console.log(stateClone.currentWorkTime)
+			return _.merge({}, state, {
+				currentWorkTime: stateClone.currentWorkTime
+			})
+
+		case ADD_BREAK_STATS:
+			stateClone.currentBreakTime.push(action.stat);
+			console.log(stateClone.currentBreakTime)
+			return _.merge({}, state, {
+				currentBreakTime: stateClone.currentBreakTime
+			})
 
 		default: 
 			return state;

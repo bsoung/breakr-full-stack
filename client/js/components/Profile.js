@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chart from './Chart'
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -15,10 +16,12 @@ class Profile extends Component {
 					<h3 className='profile-intro' style={{marginLeft: '65px'}} >Hello {username}</h3>
 					<div className='habit-info'>
 						<h4>Statistics</h4>
-						<p>Number of Breaks</p>
-						<p>Number of Works</p>
-						<p>Total Break Time</p>
-						<p>Total Work Time</p>
+						<div style={{display: 'inline-block'}}>
+							<p>Number of Works (minutes)</p>
+				 			<Chart data={this.props.numberOfWorks} color="orange" units="minutes"/>
+				 			<p>Number of Breaks (minutes)</p>
+				 			<Chart data={this.props.numberOfBreaks} color="blue" units="minutes"/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -26,9 +29,16 @@ class Profile extends Component {
 	}
 }
 
+		// <Sparklines height={120} width={180} data={this.props.numberOfBreaks}>
+		// 						<SparklinesLine color={props.color} />
+		// 						<SparklinesReferenceLine type='avg' />
+		// 					</Sparklines>
+
 const mapStateToProps = (state) => {
 	return {
-		user: state.user
+		user: state.user,
+		numberOfWorks: state.currentWorkTime,
+		numberOfBreaks: state.currentBreakTime
 	}
 }
 
