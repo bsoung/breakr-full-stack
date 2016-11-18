@@ -56,14 +56,14 @@ class Timer extends Component {
 			this.props.addBreakStats(e.target.timerValue.value);
 		}
 
-		
-		
 		e.target.timerValue.value = null;
 	}
 
 
 	onClickLogout (e) {
 		e.preventDefault();
+		this.setState({playSound: false});
+		this.props.timerStart(null, 'none');
 		this.props.logOut();
 		this.props.router.push('/');
 		
