@@ -31,47 +31,44 @@ class CreateAccount extends Component {
 		const pass = e.target.password.value;
 		const repass = e.target.passwordAgain.value;
 
-		if (!user || !pass || !repass) {
-			alert('Please enter a username and password!');
-			return;
-		}
-
 		if (pass !== repass) {
 			alert('Password does not match!')
 			return;
 		}  
 
-		this.props.router.push('/timer');
-
+		this.props.createUser(user, pass);
 	}
 
 	render () {
 		return (
 			<div className='login'>
-				<h2>Sign Up!</h2>
-				<form onSubmit={this.handleFormSubmit}>
-					
-					<div className='form-group'>
-						<label className='username'>Username</label>
-						<input name='username' type='text' className='form-control' />  
-					</div>
+				<div className='signup-group'>
+					<h2>Sign Up!</h2>
+					<form onSubmit={this.handleFormSubmit}>
+						
+						<div className='form-group'>
+							<label className='username'>Username</label>
+							<input name='username' type='text' className='form-control' required/>  
+						</div>
 
-					<div className='form-group'>
-						<label className='genpassword'>Password</label>
-						<input name='password' type='password' className='form-control' />  
-					</div>
+						<div className='form-group'>
+							<label className='genpassword'>Password</label>
+							<input name='password' type='password' className='form-control' required/>  
+						</div>
 
-					<div className='form-group'>
-						<label className="password">Retype Password</label>
-						<input name='passwordAgain' type='password' className='form-control' />  
-					</div>
+						<div className='form-group'>
+							<label className="password">Retype Password</label>
+							<input name='passwordAgain' type='password' className='form-control' required/>  
+						</div>
 
-					<button type='submit' className='btn btn-primary'>Create</button>
-					<Link to='/'>
-						<button type='submit' className='btn btn-danger'>Cancel</button>
-					</Link>
-				</form>
-
+						<div className='signup-btn-group'>
+							<button type='submit' className='btn btn-primary signup-btn hvr-pop'>Create</button>
+							<Link to='/'>
+								<button type='submit' className='btn btn-danger signup-btn hvr-pop'>Cancel</button>
+							</Link>
+						</div>
+					</form>
+				</div>
 
 				
 			</div>

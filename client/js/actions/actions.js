@@ -1,20 +1,21 @@
 const fetch = require('isomorphic-fetch');
 
-export const WORK_TIMER_START = 'WORK_TIMER_START'
-export function workTimerStart (minutes) {
+export const TIMER_START = 'TIMER_START';
+export function timerStart (seconds, timerType) {
 	return {
-		type: WORK_TIMER_START,
-		minutes: minutes
+		type: TIMER_START,
+		seconds: seconds,
+		timerType,
+		timeStarted: Date.now()
 	}
 };
 
-export const BREAK_TIMER_START = 'BREAK_TIMER_START'
-export function breakTimerStart (minutes) {
+export const TIMER_COMPLETE = 'TIMER_COMPLETE';
+export function timerComplete () {
 	return {
-		type: BREAK_TIMER_START,
-		minutes: minutes
+		type: TIMER_COMPLETE
 	}
-};
+}
 
 export const FETCH_ERROR = 'FETCH_ERROR';
 export function fetchError (error) {
@@ -32,14 +33,10 @@ export function setUser (user) {
 	}
 }
 
-export const LOGOUT_USER = 'LOGOUT_USER';
-export function logOut (user) {
-	return {
-		type: LOGOUT_USER,
-		user: user
-	}
+export function logOut () {
+	localStorage.username = null;
+	return setUser(null);
 }
-
 
 
 export function logIn (username, password) {
@@ -68,8 +65,11 @@ export function logIn (username, password) {
 		})
 		.then((data) => {
 			console.log(data)
+
+			localStorage.username = data.user.username;
+
 			return dispatch(
-				setUser(data.user)
+				setUser(data.user) 
 			)
 		})
 		
@@ -131,7 +131,39 @@ export function createUser (username, password) {
 			return res.json();
 		})
 		.then((data) => {
-			console.log(data)
+			console.log(data, 'data after user is created.')
+
+			localStorage.username = data.user.username;
+
+			return dispatch(
+				setUser(data.user)
+			)
+		})
+
+		.catch((error) => {
+			return dispatch(
+				fetchError(error)
+			);
+		});
+	}
+}
+
+export function getUser (username) {
+	return (dispatch) => {	
+	    fetch(
+			`/api/user/${username}`, 
+		)
+		.then((res) => {
+			if (res.status < 200 || res.status >= 300) {
+				const error = new Error(res.statusText);
+				error.res = res;
+				throw error;
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			console.log(data, 'Got this user')
 			return dispatch(
 				setUser(data.user)
 			)
