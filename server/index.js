@@ -17,9 +17,6 @@ app.use(express.static(process.env.CLIENT_PATH || "../build"));
 
 app.use(passport.initialize());
 
-
-
-
 passport.use(new Strategy({ session: false },
   function (username, password, callback) {
     User.findOne({
@@ -106,7 +103,6 @@ app.post('/api/user', jsonParser, (req, res) => {
 
 });
 
-
 app.put('/api/user/:username', jsonParser, (req, res) => {
     let options = {
         upsert: true,
@@ -172,18 +168,6 @@ if (require.main === module) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 exports.app = app;
