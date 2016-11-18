@@ -49,10 +49,10 @@ class Timer extends Component {
 		this.props.timerStart(e.target.timerValue.value * 60, e.target.timerType.value);
 
 		console.log("Check the user's stats", this.props.user)
-		if (e.target.timerType.value === 'work' || this.props.user !== null) {
+		if (e.target.timerType.value === 'work') {
 			this.props.addWorkStats(e.target.timerValue.value);
 
-		} else if (e.target.timerType.value === 'break' || this.props.user !== null) {
+		} else if (e.target.timerType.value === 'break') {
 			this.props.addBreakStats(e.target.timerValue.value);
 		}
 
