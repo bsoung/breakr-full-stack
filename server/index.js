@@ -67,7 +67,7 @@ app.get('/api/user/:username', (req, res) => {
 });
 
 app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
-    res.status(200).json({user: req.user});
+    res.status(201).json({user: req.user});
 });
 
 app.post('/api/user', jsonParser, (req, res) => {
