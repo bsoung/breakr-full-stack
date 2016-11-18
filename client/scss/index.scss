@@ -1,33 +1,63 @@
+#app {
+  margin-top: -45px;
+}
+
+.submit-btn {
+  margin-bottom: 13px;
+}
+
 .logout-btn {
+  margin-right: 10px;
   float: right;
 }
 
+.login-btn {
+  margin-right: 40px;
+}
+
+.signup-btn {
+  margin-right: 26px;
+}
+
 .profile {
-  border: 8px solid #00816A;
-  width: 800px;
-  height: 600px;
+  padding-top: 150px;
+  width: 600px;
   margin: 0 auto;
-  margin-top: 27px;
 }
 
 .habit-info {
+  padding: 50px;
   border: 2px solid #00816A;
 }
 
 .profile-info {
+  padding-bottom: 85px;
   text-align: center;
 
 }
 
-.btn {
-  margin-right: 10px;
+.signup-group {
+  padding-top: 57px;
+}
+
+.signup-btn-group {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.btn-group {
+  margin-left: 47px;
+  margin-top: 50px;
 }
 
 .back-btn {
+  margin-right: 10px;
   float: right;
 }
 
 .timer-block {
+  margin-top: 73px;
+  margin-left: 30px;
   float: left;
 }
 
@@ -93,6 +123,7 @@
 }
 
 .countdown-btn {
+  margin-left: 35px;
 	margin-top: 10px;
 }
 
@@ -104,6 +135,7 @@ body{
 }
 
 h1 {
+  text-align: center;
   color: #fff;
   font-size: 80px;
   margin-bottom: -25px;
@@ -125,10 +157,10 @@ h2 {
   margin-top: 50px;
 }
 
-h3{
+h3 {
   color: #396;
   font-weight: 100;
-  font-size: 40px;
+  font-size: 30px;
   margin: 40px 0px 20px;
 }
 
@@ -179,13 +211,16 @@ label {
     font-size: 16px;
 }
 
-.breakTimer, .workTimer {
+.break-timer {
+  margin-left: -85px;
   display: block;
 }
 
 .hourglass-img {
+  margin-right: 50px;
   margin: auto;
   width: 300px;
+  height: 400px;
   border: 8px solid #00816A;
   border-radius: 10px;
   float: right;
@@ -193,6 +228,7 @@ label {
 }
 
 .glass {
+  height: 390px;
   margin-left: -18px;
   margin-top: 2px;
 }
@@ -205,6 +241,8 @@ input {
   margin: 5px;
 }
 
+button:focus {outline:0;}
+
 button {
   margin-top: 10px;
   background-color: #00816A;
@@ -216,6 +254,10 @@ button {
   border: none;
 }
 
+.timer-glass {
+  margin-top: -55px;
+}
+
 .form-control {
   border-radius: 5px;
   border: none;
@@ -223,3 +265,41 @@ button {
   font-size: 14px;
   margin: 5px;
 }
+
+
+/**** FANCY ****/
+
+@-webkit-keyframes hvr-pop {
+  50% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}
+@keyframes hvr-pop {
+  50% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}
+.hvr-pop {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+}
+.hvr-pop:hover, .hvr-pop:focus, .hvr-pop:active {
+  -webkit-animation-name: hvr-pop;
+  animation-name: hvr-pop;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+
+
+
+

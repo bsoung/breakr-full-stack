@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { logIn } from '../actions/actions';
 import { Link } from 'react-router';
 
-
 class Login extends Component {
 	constructor (props) {
 		super(props);
@@ -30,19 +29,11 @@ class Login extends Component {
 		const user = e.target.username.value;
 		const pass = e.target.password.value;
 
-		if (!user || !pass) {
-			alert("Please enter a username and password!")
-			return
-		}  
-
-
 		this.props.logIn(user, pass);
 
 	}
 
-	render () {
-		// const { fields: { username, password} } = this.props;
-		
+	render () {		
 		return (
 			<div className='login'>
 				<div className='header'>
@@ -52,18 +43,24 @@ class Login extends Component {
 					
 					<div className='form-group'>
 						<label>Username</label>
-						<input name='username' type='text' className='form-control'   />  
+						<input name='username' type='text' className='form-control' required/>  
 						 
 					</div>
 
 					<div className='form-group'>
 						<label>Password</label>
-						<input name='password' type='password' className='form-control'   />
+						<input style={{marginLeft: '9px'}} name='password' type='password' className='form-control' required/>
 						 
 					</div>
-					<button type='submit' className='btn btn-primary'>Login</button>
-					<Link to='/signup' className='btn btn-primary'>Register</Link>
-					<Link to='/timer' className='btn btn-primary'>Guest</Link>
+					<div className='btn-group'>
+						<button type='submit' className='btn btn-primary login-btn hvr-pop'>Login</button>
+						<Link to='/signup'>
+							<button className='btn btn-primary login-btn hvr-pop'>Register</button>
+						</Link>
+						<Link to='/timer'>
+							<button className='btn btn-primary login-btn hvr-pop'>Guest</button>
+						</Link>
+					</div>
 					
 				</form>
 
@@ -73,26 +70,6 @@ class Login extends Component {
 		)
 	}
 }
-
-// const validate = (values) => {
-// 	const errors = {};
-
-// 	if (!values.username) {
-// 		errors.username = 'Enter a username';
-// 	}
-
-// 	if (!values.password) {
-// 		errors.password = 'Enter a password';
-// 	}
-
-// 	return errors;
-// }
-
-// const validateObject = {
-// 	form: 'Login',
-// 	fields: ['username', 'password'],
-// 	validate
-// }
 
 const mapStateToProps = (state) => {
 	return {

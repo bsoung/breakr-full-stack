@@ -1,46 +1,50 @@
+import _ from 'lodash';
+
 import { 
-	WORK_TIMER_START, 
-	BREAK_TIMER_START, 
-	SET_USER, 
-	LOGOUT_USER,
-	GUEST_LOGIN
+	TIMER_START,
+	SET_USER,
+	TIMER_COMPLETE
+
 } from '../actions/actions';
 
 const initialState = {
-	workTimeRemaining: null,
-	breakTimeRemaining: null,
+	timer: {
+		total: null, 
+		timeStarted: null, 
+		timerType: null,
+		complete: false
+	},
 	user: null
 };
 
 export default function (state=initialState, action={}) {
-	const payload = {};
-
 	switch (action.type) {
 
-		case WORK_TIMER_START:
-			payload.workTimeRemaining = (Date.now() + (action.minutes * 1000))
-			break;
-
-		case BREAK_TIMER_START:
-			payload.breakTimeRemaining = (Date.now() + (action.minutes * 1000))
-			break;
+		case TIMER_START:
+		  return _.merge({}, state, {
+		    timer: {
+		      total: action.seconds,
+		      timeStarted: action.timeStarted,
+		      timerType: action.timerType,
+		      complete: false
+		    },
+		  });
 
 		case SET_USER:
-			payload.user = action.user
-			console.log("this is action user", action.user)
-			break;
+		  return _.merge({}, state, {
+		    user: action.user
+		  })
 
-		case LOGOUT_USER:
-			payload.user = null
-			console.log('payload', payload.user)
-			break;
+		case TIMER_COMPLETE:
+		  return _.merge({}, state, {
+		  	timer: {
+		  		complete: true
+		  	}
+		  })
 
 		default: 
 			return state;
 	}
-	console.log("state is", state)
-
-	return Object.assign({}, state, payload);
 }
 
 

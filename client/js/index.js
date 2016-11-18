@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import { Router, browserHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 import routes from './Route';
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
@@ -11,8 +11,9 @@ console.log(`Client running in ${process.env.NODE_ENV} mode`);
 document.addEventListener('DOMContentLoaded', () => {
 	if (Notification.permission !== "granted")
     Notification.requestPermission();
+
 	ReactDOM.render( 
 			<Provider store={store}>
-				<Router history={browserHistory} routes={routes} />
+				<Router history={hashHistory} routes={routes} />
 			</Provider>, document.getElementById('app'))
 })

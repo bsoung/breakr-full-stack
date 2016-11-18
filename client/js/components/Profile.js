@@ -4,18 +4,22 @@ import { connect } from 'react-redux';
 
 class Profile extends Component {
 	render () {
+		const { username } = this.props.user || {username: 'Guest'};
+
 		return (
 			<div className='profile'>
-				<Link to='/timer' >
-					<button className='btn btn-primary back-btn'>Back</button>
-				</Link>
-				<h3 className='profile-intro' style={{marginLeft: '60px'}} >Hello {this.props.user.username}</h3>
-				<div className='habit-info'>
-					<h4>Statistics</h4>
-					<p>Number of Breaks</p>
-					<p>Number of Works</p>
-					<p>Total Break Time</p>
-					<p>Total Work Time</p>
+				<div className='profile-block'>
+					<Link to='/timer' >
+						<button className='btn btn-primary back-btn hvr-pop'>Back</button>
+					</Link>
+					<h3 className='profile-intro' style={{marginLeft: '65px'}} >Hello {username}</h3>
+					<div className='habit-info'>
+						<h4>Statistics</h4>
+						<p>Number of Breaks</p>
+						<p>Number of Works</p>
+						<p>Total Break Time</p>
+						<p>Total Work Time</p>
+					</div>
 				</div>
 			</div>
 		)
