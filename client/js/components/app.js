@@ -4,11 +4,12 @@ import { getUser } from '../actions/actions';
 
 class App extends Component {
 	componentWillMount () {
-		console.log('here in app js', this.props.user, localStorage.username)
 		if (this.props.user === null && localStorage.username !== null) {
-
 			this.props.getUser(localStorage.username);
+			
 		}
+
+
 	}
 
 	render() {

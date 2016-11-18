@@ -53,7 +53,6 @@ passport.use(new Strategy({ session: false },
 }));
 
 app.get('/api/user/:username', (req, res) => {
-    console.log(req.body);
     User.findOne({ username: req.params.username }, (err, user) => {
         if (err) {
             console.error(err);
@@ -71,7 +70,6 @@ app.get('/api/user/:username', (req, res) => {
 });
 
 app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
-
     res.status(200).json({user: req.user});
 });
 
@@ -107,6 +105,44 @@ app.post('/api/user', jsonParser, (req, res) => {
     });
 
 });
+
+
+app.put('/api/user/:username', jsonParser, (req, res) => {
+    let options = {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+    };
+
+    User.findOneAndUpdate(req.params.username, {username: req.body.username}, options, (err, user) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({message: "Internal Server Error"})
+        }
+
+        if (user) {
+            return res.status(200).json({user});
+        } 
+
+        return res.status(404).json({message: "User not found"})
+    });
+});
+
+
+app.delete('/api/user/:username', (req, res) => {
+    User.findOneAndRemove(req.params.username, (err, user) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({message: "Internal Server Error"})
+        }
+
+        if (user) {
+            return res.status(200).json({});
+        } 
+
+        return res.status(404).json({message: "User not found"})
+    })
+})
 
 
 function runServer (callback) {

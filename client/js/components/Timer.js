@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { timerStart, timerComplete, logOut } from '../actions/actions';
+import { timerStart, timerComplete, logOut, addWorkStats, addBreakStats } from '../actions/actions';
 import Sound from 'react-sound';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -11,11 +11,13 @@ class Timer extends Component {
 		super(props);
 
 		this.state = {
-			playSound: false
+			playSound: false,
+
 		}
 
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
+
 	}
 
 	notifyMe () {
@@ -42,8 +44,20 @@ class Timer extends Component {
   	}
 
 	onFormSubmit (e) {
+
 		e.preventDefault();
-		this.props.timerStart(e.target.timerValue.value * 60, e.target.timerType.value); 
+		this.props.timerStart(e.target.timerValue.value * 60, e.target.timerType.value);
+
+		console.log("Check the user's stats", this.props.user)
+		if (e.target.timerType.value === 'work' || this.props.user !== null) {
+			this.props.addWorkStats(e.target.timerValue.value);
+
+		} else if (e.target.timerType.value === 'break' || this.props.user !== null) {
+			this.props.addBreakStats(e.target.timerValue.value);
+		}
+
+		
+		
 		e.target.timerValue.value = null;
 	}
 
@@ -55,13 +69,9 @@ class Timer extends Component {
 		
 	}
 
-
 	render () {
 
-	console.log('the user is ', this.props.user)
-
 	const { timer } = this.props;
-
 	let timeLeft = 0;
 
 	let progress = 0;
@@ -177,9 +187,10 @@ const mapStateToProps = (state, props) => {
 	return {
 		timer: state.timer,
 		user: state.user
+
 	}
 }
 
-export default connect(mapStateToProps, { timerStart, timerComplete, logOut })(Timer);
+export default connect(mapStateToProps, { timerStart, timerComplete, logOut, addWorkStats, addBreakStats })(Timer);
 
 
