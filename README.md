@@ -12,7 +12,19 @@ Interval training to increase mindful productivity while working, stressing the 
 
 
 
-### API Reference
+## Technologies
+
+* React
+* Redux
+* JavaScript
+* CSS
+* MongoDB
+* Express
+* Passport
+
+
+
+## API Reference
 
 * GET /api/user    :: returns all users who have been created
 * POST /api/user   :: creates a new user with a username, password, and timer object
@@ -20,14 +32,20 @@ Interval training to increase mindful productivity while working, stressing the 
 
 
 
-#### Tests
+## Tests
 
 * To run tests, use command "npm test" in the command line.
 * Tests completed and passing for our User Model and Chart Component.
 
 
 
-##### Contributers
+## Use
+
+* To use this application, simply clone the repository.
+
+
+
+### Contributers
 * bsoung
 * dennellmarie
 * emontecalvo
