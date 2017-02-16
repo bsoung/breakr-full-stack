@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { timerStart, timerComplete, logOut, addWorkStats, addBreakStats } from '../actions/actions';
+import { updateUser, timerStart, timerComplete, logOut } from '../actions/actions';
 import Sound from 'react-sound';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -14,6 +14,8 @@ class Timer extends Component {
 			playSound: false,
 
 		}
+
+		console.log(this.props.user, "what is user here")
 
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
@@ -44,17 +46,21 @@ class Timer extends Component {
   	}
 
 	onFormSubmit (e) {
-
 		e.preventDefault();
+
 		this.props.timerStart(e.target.timerValue.value * 60, e.target.timerType.value);
 
-		console.log("Check the user's stats", this.props.user)
-		if (e.target.timerType.value === 'work') {
-			this.props.addWorkStats(e.target.timerValue.value);
 
-		} else if (e.target.timerType.value === 'break') {
-			this.props.addBreakStats(e.target.timerValue.value);
-		}
+		// if (e.target.timerType.value === 'work') {
+		// 	this.props.addWorkStats(e.target.timerValue.value);
+
+		// } else if (e.target.timerType.value === 'break') {
+		// 	this.props.addBreakStats(e.target.timerValue.value);
+		// }
+
+		this.props.updateUser(this.props.user.username, e.target.timerValue.value, e.target.timerValue.value);
+		
+		console.log("this should be our user stats", this.props.user)
 
 		e.target.timerValue.value = null;
 	}
@@ -70,6 +76,8 @@ class Timer extends Component {
 	}
 
 	render () {
+
+
 
 	const { timer } = this.props;
 	let timeLeft = 0;
@@ -206,6 +214,6 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-export default connect(mapStateToProps, { timerStart, timerComplete, logOut, addWorkStats, addBreakStats })(Timer);
+export default connect(mapStateToProps, { updateUser, timerStart, timerComplete, logOut })(Timer);
 
 

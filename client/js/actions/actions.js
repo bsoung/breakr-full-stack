@@ -1,7 +1,7 @@
 const fetch = require('isomorphic-fetch');
 
 export const TIMER_START = 'TIMER_START';
-export function timerStart (seconds, timerType) {
+export function timerStart(seconds, timerType) {
 	return {
 		type: TIMER_START,
 		seconds: seconds,
@@ -11,14 +11,14 @@ export function timerStart (seconds, timerType) {
 };
 
 export const TIMER_COMPLETE = 'TIMER_COMPLETE';
-export function timerComplete () {
+export function timerComplete() {
 	return {
 		type: TIMER_COMPLETE
 	}
 }
 
 export const FETCH_ERROR = 'FETCH_ERROR';
-export function fetchError (error) {
+export function fetchError(error) {
 	return {
 		type: FETCH_ERROR,
 		error: error
@@ -26,28 +26,39 @@ export function fetchError (error) {
 }
 
 export const SET_USER = 'SET_USER';
-export function setUser (user) {
+export function setUser(user) {
 	return {
 		type: SET_USER,
 		user: user
 	}
 }
 
-export const ADD_WORK_STATS = 'ADD_WORK_STATS';
-export function addWorkStats (stat) {
+export const SET_STATS = 'SET_STATS';
+export function setStats(work, breaks) {
 	return {
-		type: ADD_WORK_STATS,
-		stat: stat
+		type: SET_STATS,
+		work,
+		breaks
 	}
-}
+} 
 
-export const ADD_BREAK_STATS = 'ADD_BREAK_STATS';
-export function addBreakStats (stat) {
-	return {
-		type: ADD_BREAK_STATS,
-		stat: stat
-	}
-}
+
+
+// export const ADD_WORK_STATS = 'ADD_WORK_STATS';
+// export function addWorkStats (stat) {
+// 	return {
+// 		type: ADD_WORK_STATS,
+// 		stat: stat
+// 	}
+// }
+
+// export const ADD_BREAK_STATS = 'ADD_BREAK_STATS';
+// export function addBreakStats (stat) {
+// 	return {
+// 		type: ADD_BREAK_STATS,
+// 		stat: stat
+// 	}
+// }
 
 export function logOut () {
 	localStorage.username = null;
@@ -132,6 +143,46 @@ export function createUser (username, password) {
 		})
 
 		.catch((error) => {
+			alert("Username is taken!");
+			return dispatch(
+				fetchError(error)
+			);
+		});
+	}
+}
+
+export function updateUser (username, work, breaks) {
+	return (dispatch) => {
+		const url = `/api/user/${username}`;
+		const req = {username, work, breaks};
+
+		return fetch(
+			url, 
+			{
+				method: 'post', 
+				body: JSON.stringify(req), 
+				headers: {'content-type': 'application/json', 'Accept':'application/json'} 
+			}
+		)
+
+		.then((res) => {
+			if (res.status < 200 || res.status >= 300) {
+				const error = new Error(res.statusText);
+				error.res = res;
+				throw error;
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			console.log(data, 'data after user is updated.')
+
+			return dispatch(
+				setStats(data.user.timer.work, data.user.timer.breaks)
+			)
+		})
+
+		.catch((error) => {
 			return dispatch(
 				fetchError(error)
 			);
@@ -155,6 +206,7 @@ export function getUser (username) {
 		})
 		.then((data) => {
 			console.log(data, 'Got this user')
+
 			return dispatch(
 				setUser(data.user)
 			)

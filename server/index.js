@@ -21,7 +21,9 @@ passport.use(new Strategy({ session: false },
   function (username, password, callback) {
     User.findOne({
         username: username
-        }).select('username password').exec((err, user) => {
+        }).select('username password timer').exec((err, user) => {
+
+            console.log("WHat is USER HERE?", user)
             if (err) {
                 return callback(err);
             }
@@ -44,6 +46,7 @@ passport.use(new Strategy({ session: false },
                     });
                 }
 
+
                 return callback(null, user);
             });
         }); 
@@ -51,19 +54,50 @@ passport.use(new Strategy({ session: false },
 
 app.get('/api/user/:username', (req, res) => {
     User.findOne({ username: req.params.username }, (err, user) => {
+
         if (err) {
             console.error(err);
-            return res.status(500).json({message: "Internal Server Error"})
+            return res.status(500).json({message: "Internal Server Error"});
         }
 
         if (user) {
             return res.status(200).json({user});
         } 
 
-        return res.status(404).json({message: "User not found"})
+        return res.status(404).json({message: "User not found"});
 
     });
 
+});
+
+app.post('/api/user/:username', jsonParser, (req, res) => {
+
+    User.findOne({ username: req.body.username }, (err, user) => {
+
+        if (err) {
+            console.error(err);
+            return res.status(500).json({message: "Internal Server Error"});
+        }
+
+        if (!user) {
+            console.error(err);
+            return res.status(404).json({message: "User not found"});
+        }
+
+        user.timer.breaks.push(req.body.breaks);
+        user.timer.work.push(req.body.work);
+
+        user.save(function(err, user) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+
+            return res.status(200).json({user});
+        });
+
+    });
 });
 
 app.post('/api/login', jsonParser, passport.authenticate('local', { session: false }), (req, res) => {
@@ -71,13 +105,15 @@ app.post('/api/login', jsonParser, passport.authenticate('local', { session: fal
 });
 
 app.post('/api/user', jsonParser, (req, res) => {
-    console.log(req.body);
-    User.findOne({ username: req.body.username }).select('username').exec((err, user) => {
+    User.findOne({ username: req.body.username }).select('username timer').exec((err, user) => {
         if (user) {
+
             return res.status(400).json({message: 'User does exist'});
         } 
 
-        user = new User({username: req.body.username});
+        user = new User({
+            username: req.body.username
+        });
 
         user.hashPassword(req.body.password, (err, hashPassword) => {
             if (err) {
@@ -88,7 +124,7 @@ app.post('/api/user', jsonParser, (req, res) => {
 
             user.password = hashPassword;
 
-            user.save((err) => {
+            user.save((err, user) => {
                 if (err) {
                     return res.status(500).json({
                         message: 'Internal Server Error'
@@ -100,29 +136,30 @@ app.post('/api/user', jsonParser, (req, res) => {
             });
         });
     });
-
 });
 
-app.put('/api/user/:username', jsonParser, (req, res) => {
-    let options = {
-        upsert: true,
-        new: true,
-        setDefaultsOnInsert: true
-    };
 
-    User.findOneAndUpdate(req.params.username, {username: req.body.username}, options, (err, user) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({message: "Internal Server Error"})
-        }
 
-        if (user) {
-            return res.status(200).json({user});
-        } 
+// app.put('/api/user/:username', jsonParser, (req, res) => {
+//     let options = {
+//         upsert: true,
+//         new: true,
+//         setDefaultsOnInsert: true
+//     };
 
-        return res.status(404).json({message: "User not found"})
-    });
-});
+//     User.findOneAndUpdate(req.params.username, {$set: {username: "bb"}}, options, (err, user) => {
+//         if (err) {
+//             console.error(err);
+//             return res.status(500).json({message: "Internal Server Error"})
+//         }
+
+//         if (user) {
+//             return res.status(200).json({user});
+//         } 
+
+//         return res.status(404).json({message: "User not found"})
+//     });
+// });
 
 
 app.delete('/api/user/:username', (req, res) => {

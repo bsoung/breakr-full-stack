@@ -4,7 +4,14 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
+
 	render () {
+		// console.log("THIS IS THE USER", this.props.user);
+		// console.log("THIS IS THE TIMER", this.props.user.timer);
+
+		// console.log("THIS IS THE USER WORK", this.props.user.timer.work);
+		// console.log("THIS IS THE TIMER BREAK", this.props.user.timer.breaks);
+
 		const { username } = this.props.user || {username: 'Guest'};
 
 		return (
