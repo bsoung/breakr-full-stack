@@ -7,8 +7,7 @@ class App extends Component {
 		if (this.props.user === null && localStorage.username !== null) {
 			this.props.getUser(localStorage.username);
 			
-		}
-
+		} 
 
 	}
 

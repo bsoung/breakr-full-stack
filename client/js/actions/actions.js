@@ -90,38 +90,13 @@ export function logIn (username, password) {
 		})
 		
 		.catch((error) => {
+			alert("Please check your login info and try again!")
 			return dispatch(
-				fetchError(error) // TODO: SET_NOTIFICATION type, 
+				fetchError(error) 
 			);
 		});
 	}
 }
-
-/* IMPORTANT:
-
-export function setNotification(msg, type) {
-  return {
-    type: SET_NOTIFICATION,
-    notification: {
-      type,
-      msg
-    }
-  }
-}
-
-export function setError(msg) {
-  return setNotification(msg, 'error');
-}
-
-
-
-
-setNotification('this is my message', 'error');
-
-setError('this is my message');
-
-
- */
 
 export function createUser (username, password) {
 	return (dispatch) => {

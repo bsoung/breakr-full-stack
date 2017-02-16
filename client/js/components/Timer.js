@@ -127,7 +127,7 @@ class Timer extends Component {
 			{this.props.user !== null && ( // shortcut for if 
 				<div>
 					<Link to='/profile' >
-		  				<button className='btn btn-primary logout-btn hvr-pop'>Account</button>
+		  				<button className='btn btn-primary logout-btn hvr-pop'>Stats</button>
 		  			</Link>
 
 					<Link to='/' onClick={this.onClickLogout}>
