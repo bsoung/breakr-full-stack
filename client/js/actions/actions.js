@@ -33,32 +33,21 @@ export function setUser(user) {
 	}
 }
 
-export const SET_STATS = 'SET_STATS';
-export function setStats(work, breaks) {
+export const SET_WORK = 'SET_WORK';
+export function setWork(work) {
 	return {
-		type: SET_STATS,
-		work,
-		breaks
+		type: SET_WORK,
+		work
 	}
 } 
 
-
-
-// export const ADD_WORK_STATS = 'ADD_WORK_STATS';
-// export function addWorkStats (stat) {
-// 	return {
-// 		type: ADD_WORK_STATS,
-// 		stat: stat
-// 	}
-// }
-
-// export const ADD_BREAK_STATS = 'ADD_BREAK_STATS';
-// export function addBreakStats (stat) {
-// 	return {
-// 		type: ADD_BREAK_STATS,
-// 		stat: stat
-// 	}
-// }
+export const SET_BREAKS = 'SET_BREAKS';
+export function setBreaks(breaks) {
+	return {
+		type: SET_BREAKS,
+		breaks
+	}
+} 
 
 export function logOut () {
 	localStorage.username = null;
@@ -151,10 +140,10 @@ export function createUser (username, password) {
 	}
 }
 
-export function updateUser (username, work, breaks) {
+export function updateWork (username, work) {
 	return (dispatch) => {
 		const url = `/api/user/${username}`;
-		const req = {username, work, breaks};
+		const req = {username, work};
 
 		return fetch(
 			url, 
@@ -175,10 +164,49 @@ export function updateUser (username, work, breaks) {
 			return res.json();
 		})
 		.then((data) => {
-			console.log(data, 'data after user is updated.')
+			console.log(data, 'data after work is updated.')
 
 			return dispatch(
-				setStats(data.user.timer.work, data.user.timer.breaks)
+				setWork(data.user.timer.work)
+			)
+		})
+
+		.catch((error) => {
+			return dispatch(
+				fetchError(error)
+			);
+		});
+	}
+}
+
+export function updateBreaks (username, breaks) {
+	return (dispatch) => {
+		const url = `/api/user/${username}`;
+		const req = {username, breaks};
+
+		return fetch(
+			url, 
+			{
+				method: 'post', 
+				body: JSON.stringify(req), 
+				headers: {'content-type': 'application/json', 'Accept':'application/json'} 
+			}
+		)
+
+		.then((res) => {
+			if (res.status < 200 || res.status >= 300) {
+				const error = new Error(res.statusText);
+				error.res = res;
+				throw error;
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			console.log(data, 'data after breaks is updated.')
+
+			return dispatch(
+				setBreaks(data.user.timer.breaks)
 			)
 		})
 

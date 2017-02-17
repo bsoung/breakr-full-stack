@@ -84,8 +84,16 @@ app.post('/api/user/:username', jsonParser, (req, res) => {
             return res.status(404).json({message: "User not found"});
         }
 
-        user.timer.breaks.push(req.body.breaks);
-        user.timer.work.push(req.body.work);
+
+        if (req.body.breaks) {
+
+            user.timer.breaks.push(req.body.breaks);
+        }
+
+        if (req.body.work) {
+
+            user.timer.work.push(req.body.work);
+        }
 
         user.save(function(err, user) {
             if (err) {
@@ -112,8 +120,14 @@ app.post('/api/user', jsonParser, (req, res) => {
         } 
 
         user = new User({
-            username: req.body.username
+            username: req.body.username,
+            timer: {
+                breaks: [null],
+                work: [null]
+            }
         });
+
+        console.log(user, "CREATED THIS USER");
 
         user.hashPassword(req.body.password, (err, hashPassword) => {
             if (err) {

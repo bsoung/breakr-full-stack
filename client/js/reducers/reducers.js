@@ -4,7 +4,8 @@ import {
     TIMER_START,
     SET_USER,
     TIMER_COMPLETE,
-    SET_STATS
+    SET_WORK,
+    SET_BREAKS
 
 
 } from '../actions/actions';
@@ -36,15 +37,19 @@ export default function(state = initialState, action = {}) {
             });
 
         case SET_USER:
-            console.log("WHATS THE ACTION?", action)
 
-            var workTime = (action.user == null) ? [0] : action.user.timer.work;
-            var breakTime = (action.user == null) ? [0] : action.user.timer.breaks;
+        	if (action.user == null) {
+	        	return _.merge({}, state, {
+	                user: action.user,
+	                currentWorkTime: null,
+	                currentBreakTime: null
+	            });
+        	}
 
             return _.merge({}, state, {
                 user: action.user,
-                currentWorkTime: workTime,
-                currentBreakTime: breakTime
+                currentWorkTime: action.user.timer.work,
+                currentBreakTime: action.user.timer.breaks
             });
 
         case TIMER_COMPLETE:
@@ -54,10 +59,18 @@ export default function(state = initialState, action = {}) {
                 }
             });
 
-        case SET_STATS:
+        case SET_WORK:
+            console.log(action, "work")
+
             return _.merge({}, state, {
                 currentWorkTime: action.work,
-                currentBreakTime: action.breaks
+            });
+
+        case SET_BREAKS:
+            console.log(action, "breaks")
+
+            return _.merge({}, state, {
+                currentBreakTime: action.breaks,
             });
 
         default:

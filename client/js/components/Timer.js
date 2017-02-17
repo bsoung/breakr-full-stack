@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUser, timerStart, timerComplete, logOut } from '../actions/actions';
+import { updateWork, updateBreaks, timerStart, timerComplete, logOut } from '../actions/actions';
 import Sound from 'react-sound';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -14,8 +14,6 @@ class Timer extends Component {
 			playSound: false,
 
 		}
-
-		console.log(this.props.user, "what is user here")
 
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onClickLogout = this.onClickLogout.bind(this);
@@ -48,20 +46,22 @@ class Timer extends Component {
 	onFormSubmit (e) {
 		e.preventDefault();
 
+		if (this.props.user) {
+
+			if (e.target.timerType.value == "work") {
+
+				this.props.updateWork(this.props.user.username, e.target.timerValue.value);
+			}
+
+			if (e.target.timerType.value == "break") {
+
+				this.props.updateBreaks(this.props.user.username, e.target.timerValue.value);
+			}
+		}
+
 		this.props.timerStart(e.target.timerValue.value * 60, e.target.timerType.value);
 
-
-		// if (e.target.timerType.value === 'work') {
-		// 	this.props.addWorkStats(e.target.timerValue.value);
-
-		// } else if (e.target.timerType.value === 'break') {
-		// 	this.props.addBreakStats(e.target.timerValue.value);
-		// }
-
-		this.props.updateUser(this.props.user.username, e.target.timerValue.value, e.target.timerValue.value);
 		
-		console.log("this should be our user stats", this.props.user)
-
 		e.target.timerValue.value = null;
 	}
 
@@ -69,7 +69,7 @@ class Timer extends Component {
 	onClickLogout (e) {
 		e.preventDefault();
 		this.setState({playSound: false});
-		this.props.timerStart(null, 'none');
+		this.props.timerStart(null, '');
 		this.props.logOut();
 		this.props.router.push('/');
 		
@@ -96,7 +96,7 @@ class Timer extends Component {
 	  	setTimeout(this.forceUpdate.bind(this), 1000);
 	  }
 	   progress = Math.floor(timeLeft / timer.total * 100);
-	  	console.log("PROGRESS", progress, timeLeft, timer.total);
+
 		  if (progress < 5) {
 		  	color = '#dbd6fb';
 		  } else if (progress < 10) {
@@ -214,6 +214,6 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-export default connect(mapStateToProps, { updateUser, timerStart, timerComplete, logOut })(Timer);
+export default connect(mapStateToProps, { updateWork, updateBreaks, timerStart, timerComplete, logOut })(Timer);
 
 
