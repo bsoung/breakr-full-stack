@@ -31,25 +31,18 @@ Interval training to increase mindful productivity while working, stressing the 
 * POST /api/login  :: authenticates the user and log the user in
 
 
+## Develop
 
-## Tests
-
-* To run tests, use command "npm test" in the command line.
-* Tests completed and passing for our User Model and Chart Component.
-
-
-
-## Use
-
-* To use this application, simply clone the repository.
-
+* Clone the repository.
+* Run npm install.
+* Enter 'npm run dev' into the terminal.
+* Visit localhost:8080
 
 
 ### Contributers
 * bsoung
 * dennellmarie
 * emontecalvo
-
 
 
 ##### Directory layout
