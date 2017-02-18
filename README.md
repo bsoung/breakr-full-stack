@@ -16,12 +16,12 @@ Interval training to increase mindful productivity while working, stressing the 
 
 * React
 * Redux
-* JavaScript
 * CSS
 * MongoDB
 * Express
 * Passport
-
+* Gulp
+* Webpack / Babel
 
 
 ## API Reference
