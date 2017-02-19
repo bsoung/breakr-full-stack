@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
 	timer: { breaks: { type: Array }, work: { type: Array }}
 });
 
-UserSchema.methods.validatePassword = function (password, callback) {
+UserSchema.methods.validatePassword = function(password, callback) {
 	bcrypt.compare(password, this.password, callback);
 }
 

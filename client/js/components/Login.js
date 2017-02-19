@@ -4,26 +4,26 @@ import { logIn } from '../actions/actions';
 import { Link } from 'react-router';
 
 class Login extends Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.checkUser(this.props.user);
 	}
 
-	componentWillReceiveProps (nextProps) { // react router lifecycle
+	componentWillReceiveProps(nextProps) { // react router lifecycle
 		this.checkUser(nextProps.user);
 	}
 
-	checkUser (user) {
+	checkUser(user) {
 		if (user !== null) {
 			this.props.router.replace('/timer');
 		} 
 	}
 
-	handleFormSubmit (e) {
+	handleFormSubmit(e) {
 		e.preventDefault();
 
 		const user = e.target.username.value;
@@ -33,7 +33,7 @@ class Login extends Component {
 
 	}
 
-	render () {		
+	render() {		
 		return (
 			<div className='login'>
 				<div className='header'>
@@ -52,6 +52,7 @@ class Login extends Component {
 						<input style={{marginLeft: '9px'}} name='password' type='password' className='form-control' required/>
 						 
 					</div>
+
 					<div className='btn-group'>
 						<button type='submit' className='btn btn-primary login-btn hvr-pop'>Login</button>
 						<Link to='/signup'>
@@ -63,8 +64,6 @@ class Login extends Component {
 					</div>
 					
 				</form>
-
-				
 			</div>
 
 		)

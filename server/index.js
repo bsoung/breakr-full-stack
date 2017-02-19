@@ -9,7 +9,6 @@ import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import { Strategy } from 'passport-local';
 
-
 const app = express();
 const jsonParser = bodyParser.json();
 
@@ -152,30 +151,6 @@ app.post('/api/user', jsonParser, (req, res) => {
     });
 });
 
-
-
-// app.put('/api/user/:username', jsonParser, (req, res) => {
-//     let options = {
-//         upsert: true,
-//         new: true,
-//         setDefaultsOnInsert: true
-//     };
-
-//     User.findOneAndUpdate(req.params.username, {$set: {username: "bb"}}, options, (err, user) => {
-//         if (err) {
-//             console.error(err);
-//             return res.status(500).json({message: "Internal Server Error"})
-//         }
-
-//         if (user) {
-//             return res.status(200).json({user});
-//         } 
-
-//         return res.status(404).json({message: "User not found"})
-//     });
-// });
-
-
 app.delete('/api/user/:username', (req, res) => {
     User.findOneAndRemove(req.params.username, (err, user) => {
         if (err) {
@@ -191,8 +166,7 @@ app.delete('/api/user/:username', (req, res) => {
     })
 })
 
-
-function runServer (callback) {
+function runServer(callback) {
     console.log("BEGIN")
     mongoose.connect(config.DATABASE_URL, (err) => {
         if (err && callback) {

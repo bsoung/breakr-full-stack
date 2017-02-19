@@ -7,7 +7,6 @@ import {
     SET_WORK,
     SET_BREAKS
 
-
 } from '../actions/actions';
 
 const initialState = {
@@ -60,15 +59,11 @@ export default function(state = initialState, action = {}) {
             });
 
         case SET_WORK:
-            console.log(action, "work")
-
             return _.merge({}, state, {
                 currentWorkTime: action.work,
             });
 
         case SET_BREAKS:
-            console.log(action, "breaks")
-
             return _.merge({}, state, {
                 currentBreakTime: action.breaks,
             });

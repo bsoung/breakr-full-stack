@@ -9,11 +9,12 @@ import routes from './Route';
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (Notification.permission !== "granted")
-    Notification.requestPermission();
-
+	if (Notification.permission !== "granted") {
+		Notification.requestPermission();
+	}
+    
 	ReactDOM.render( 
-			<Provider store={store}>
-				<Router history={hashHistory} routes={routes} />
-			</Provider>, document.getElementById('app'))
-})
+		<Provider store={store}>
+			<Router history={hashHistory} routes={routes} />
+		</Provider>, document.getElementById('app'))
+});
