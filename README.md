@@ -27,6 +27,7 @@ Interval training to increase mindful productivity while working, stressing the 
 
 ![breakr](http://i.imgur.com/u0eMHzR.png "Breakr interface")
 ![breakr](http://i.imgur.com/dFXShGY.png "Breakr interface")
+![breakr](http://i.imgur.com/Po0cu9P.png "Breakr interface")
 
 
 ## API Reference
