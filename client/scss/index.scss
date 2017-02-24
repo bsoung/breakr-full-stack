@@ -62,16 +62,26 @@
 }
 
 .login {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 500px;
-  margin-left: -250px;
-  margin-top: -250px;
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  margin-top: 20%;
+  padding-top: 3%;
   border: 5px solid white;
   border-radius: 5px;
 }
+
+// .login {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   width: 500px;
+//   height: 500px;
+//   margin-left: -250px;
+//   margin-top: -250px;
+//   border: 5px solid white;
+//   border-radius: 5px;
+// }
 
 .timer {
 	margin: 0 auto;
